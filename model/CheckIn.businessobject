@@ -3,7 +3,7 @@
   "name": "CheckIn",
   "label": "Check In",
   "defaultSecurityDomains": [
-    "ManageCheckIns"
+    "ManageCovidCheckIns"
   ],
   "defaultCollection": {
     "name": "checkIns",
