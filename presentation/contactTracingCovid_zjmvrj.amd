@@ -1,0 +1,12 @@
+{
+  "applicationId": "contactTracingCovid_zjmvrj",
+  "tasks": [
+    {
+      "id": "root",
+      "routingPattern": "/",
+      "page": {
+        "id": "home"
+      }
+    }
+  ]
+}
