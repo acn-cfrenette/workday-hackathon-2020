@@ -1,0 +1,15 @@
+{
+  "id" : "contactTracingCovid_zjmvrj",
+  "siteId" : "contactTracingCovid_zjmvrj",
+  "siteAuth" : {
+    "authTypes" : [ {
+      "id" : "sso",
+      "scheme" : "SSO"
+    } ]
+  },
+  "languages" : [ {
+    "code" : "en-US",
+    "description" : "English"
+  } ],
+  "applicationId" : "contactTracingCovid_zjmvrj"
+}
