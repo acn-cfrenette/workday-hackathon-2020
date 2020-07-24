@@ -1,7 +1,7 @@
 {
-  "id": 2,
-  "name": "Reservations",
-  "label": "Reservations",
+  "id": 1,
+  "name": "ReservationRequests",
+  "label": "Reservation Requests",
   "defaultSecurityDomains": [
     "ManageReservations"
   ],
@@ -12,46 +12,32 @@
   "fields": [
     {
       "id": 1,
-      "name": "ReservationRequests",
-      "label": "Reservation Requests",
-      "defaultSecurityDomains": [
-        "ViewCurrentReservations"
-      ],
-      "defaultCollection": {
-        "name": "reservationRequests",
-        "label": "Reservation Requests"
-      },
-      "fields": [
-        {
-          "id": 1,
-          "name": "reservedBy",
-          "label": "Reserved By",
-          "type": "SINGLE_INSTANCE",
-          "target": "WORKER",
-          "useForDisplay": true,
-          "secureByTarget": true
-        },
-        {
-          "id": 2,
-          "name": "reservationDate",
-          "label": "Reservation Date",
-          "type": "DATE",
-          "precision": "DAY"
-        },
-        {
-          "id": 3,
-          "name": "location",
-          "label": "Office Location",
-          "type": "SINGLE_INSTANCE",
-          "target": "LOCATION"
-        },
-        {
-          "id": 4,
-          "name": "statusOfRequest",
-          "label": "Request Status",
-          "type": "TEXT"
-        }
-      ]
+      "name": "reservedBy",
+      "label": "Reserved By",
+      "type": "SINGLE_INSTANCE",
+      "target": "WORKER",
+      "useForDisplay": true,
+      "secureByTarget": true
+    },
+    {
+      "id": 2,
+      "name": "reservationDate",
+      "label": "Reservation Date",
+      "type": "DATE",
+      "precision": "DAY"
+    },
+    {
+      "id": 3,
+      "name": "location",
+      "label": "Office Location",
+      "type": "SINGLE_INSTANCE",
+      "target": "LOCATION"
+    },
+    {
+      "id": 4,
+      "name": "statusOfRequest",
+      "label": "Request Status",
+      "type": "TEXT"
     }
   ]
 }
