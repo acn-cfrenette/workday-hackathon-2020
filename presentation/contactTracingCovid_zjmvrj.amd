@@ -1,5 +1,5 @@
 {
-  "applicationId": "contactTracingCovid_zjmvrj",
+  "appProperties": [ ],
   "tasks": [
     {
       "id": "root",
@@ -8,5 +8,6 @@
         "id": "home"
       }
     }
-  ]
+  ],
+  "applicationId": "contactTracingCovid_zjmvrj"
 }
