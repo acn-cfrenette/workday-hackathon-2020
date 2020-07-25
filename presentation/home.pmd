@@ -128,7 +128,8 @@
                   "type": "text",
                   "value": "<% reservation.statusOfRequest %>"
               },
-              "label": "Request Status"
+              "label": "Request Status",
+              "sortableAndFilterable": true
             },
             {
               "type": "column",
@@ -143,7 +144,8 @@
                     "reservation": "<% reservation %>"
                   }
                 }
-              }
+              },
+            "sortableAndFilterable": false
             }
           ]
         },
@@ -172,7 +174,8 @@
               "type": "column",
               "columnId": "columnNewCases",
               "cellTemplate": {
-                "type": "text",
+                "type": "number",
+                "enabled": false,
                 "value": "<% stateCases.positiveIncrease %>"
               },
               "label": "New Cases",
@@ -182,7 +185,8 @@
               "type": "column",
               "columnId": "columnNewDeaths",
               "cellTemplate": {
-                "type": "text",
+                "type": "number",
+                "enabled": false,
                 "value": "<% stateCases.deathIncrease %>"
               },
               "label": "New Deaths",
@@ -192,7 +196,8 @@
               "type": "column",
               "columnId": "columnTotalPositive",
               "cellTemplate": {
-                "type": "text",
+                "type": "number",
+                "enabled": false,
                 "value": "<% stateCases.positive %>"
               },
               "label": "Total Overall Positive Cases",
@@ -202,7 +207,8 @@
               "type": "column",
               "columnId": "columnTotalNegative",
               "cellTemplate": {
-                "type": "text",
+                "type": "number",
+                "enabled": false,
                 "value": "<% stateCases.negative %>"
               },
               "label": "Total Overall Negative Cases",
@@ -212,7 +218,8 @@
               "type": "column",
               "columnId": "columnTotalOverall",
               "cellTemplate": {
-                "type": "text",
+                "type": "number",
+                "enabled": false,
                 "value": "<% stateCases.total %>"
               },
               "label": "Total Overall Cases",
@@ -222,7 +229,8 @@
               "type": "column",
               "columnId": "columnTotalRecovered",
               "cellTemplate": {
-                "type": "text",
+                "type": "number",
+                "enabled": false,
                 "value": "<% stateCases.recovered %>"
               },
               "label": "Total Overall Recovered",
