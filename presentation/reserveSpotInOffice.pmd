@@ -8,9 +8,17 @@
       "authType": "sso"
     },
     {
-      "name": "locations",
+      "name": "workerSearch",
       "baseUrlType": "workday-staffing",
-      "url": "workers/me",
+      "url": "workers?search=<% instanceListQuery %>",
+      "exclude": "<% empty(instanceListQuery) %>",
+      "authType": "sso",
+      "deferred": "true"
+    },
+    {
+      "name": "locations",
+      "baseUrlType": "workday-raas",
+      "url": "lmcneil/Office_Locations_Enabled_for_Return?Location_Usages_for_Location!WID=fbe0f826480e46978f80b361d35f31df&enabledForReturnForWork=1&Location_Type!WID=310065db1eea46a9ba1e4ff48a7c080d&format=json",
       "authType": "sso"
     }
   ],
@@ -23,7 +31,6 @@
         "httpMethod": "POST",
         "authType": "sso",
         "onSend": "<%
-          self.data.workerWID = worker.id;
           self.data;
         %>"
       }
@@ -45,25 +52,49 @@
       "sorted": false,
       "children": [
         {
-          "type": "readOnlyText",
-          "label": "Reserving for",
-          "value": "<% worker.descriptor %>"
-        },
-        {
-          "type": "date",
-          "label": "Requested Date",
-          "id": "requestedDate",
-          "required": "<% true %>",
-          "datePrecision": "DAY",
-          "valueOutBinding": "launchReserveSpotWorkflow.requestedDate"
-        },
-        {
           "type": "instanceList",
-          "label": "Office Location",
-          "id": "officeLocation",
+          "searchEndPoint": "<% endpoints.workerSearch %>",
+          "multiSelect": "false",
+          "id": "instanceListWorkerSearch",
+          "label": "Reserve spot for",
+          "searchResultValues": "<% workerSearch.data %>",
           "required": "<% true %>",
-          "valueOutBinding": "launchReserveSpotWorkflow.businessReason"
+          "values": "<% [worker] %>",
+          "selectedValues": "<% [worker] %>",
+          "valueOutBinding": "launchReserveSpotWorkflow.workerWID",
+          "_comment": "Set default value at page load to the current worker. They can search for a different worker by typing in the instanceList and hitting Enter."
+        },
+        {
+          "type": "section",
+          "horizontal": false,
+          "sorted": false,
+          "children": [
+            {
+              "type": "date",
+              "label": "Requested Date",
+              "id": "requestedDate",
+              "required": "<% true %>",
+              "datePrecision": "DAY",
+              "valueOutBinding": "launchReserveSpotWorkflow.requestedDate"
+            },
+            {
+              "type": "instanceList",
+              "label": "Office Location",
+              "id": "locationWID",
+              "required": "<% true %>",
+              "values": "${locations.Report_Entry}",
+              "idKey" : "locationWID",
+              "displayKey": "location",
+              "valueOutBinding": "launchReserveSpotWorkflow.locationWID"
+            },
+            {
+              "type": "button",
+              "label": "Check Availability",
+              "action": "AUXILIARY",
+            }
+          ]
         }
+
       ]
     }
   }
