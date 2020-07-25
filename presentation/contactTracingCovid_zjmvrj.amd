@@ -80,7 +80,14 @@
         {
           "id": "findTestSite",
           "startsFlow": true,
-          "taskId": "findTestSite"
+          "taskId": "findTestSite",
+          "transitions": [
+            {
+              "order": "a",
+              "value": "viewTestSites",
+              "condition": true
+            }
+          ]
         },
         {
           "id": "viewTestSites",
@@ -116,14 +123,21 @@
       "id": "submitResultsFlow",
       "flowSteps": [
         {
-          "id": "submitTestResult",
+          "id": "covidConsentForm",
           "startsFlow": true,
-          "taskId": "submitTestResult"
+          "taskId": "covidConsentForm",
+          "transitions": [
+            {
+              "order": "a",
+              "value": "submitTestResult",
+              "condition": true
+            }
+          ]
         },
         {
-          "id": "covidConsentForm",
+          "id": "submitTestResult",
           "endsFlow": true,
-          "taskId": "covidConsentForm"
+          "taskId": "submitTestResult"
         }
       ]
     },
