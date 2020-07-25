@@ -16,6 +16,13 @@
       }
     },
     {
+      "id": "cancelReservation",
+      "routingPattern": "/cancelReservation",
+      "page": {
+        "id": "cancelReservation"
+      }
+    },
+    {
       "id": "findTestSite",
       "routingPattern": "/findTestSite",
       "page": {

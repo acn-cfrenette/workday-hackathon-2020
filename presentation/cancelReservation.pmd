@@ -1,0 +1,66 @@
+{
+  "id": "cancelReservation",
+  "endPoints": [
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "launchCancelReservationWorkflow",
+        "baseUrlType": "workflow",
+        "url": "workflows/CancelReservationWorkflow/launch",
+        "httpMethod": "POST",
+        "authType": "sso",
+        "onSend": "<%
+          self.data;
+        %>"
+      }
+    ],
+    "responseErrorDetail": {
+      "errorSummary": "<% error %>",
+      "errors": "<% errors.map(item => { item.error }); %>"
+    }
+  },
+  "presentation": {
+    "headerSize": "VPS_DEFAULT",
+    "title": {
+      "type": "title",
+      "label": "Cancel Your Reservation"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "readOnlyText",
+          "id": "confirmationMessage",
+          "label": "Are you sure you want to cancel the reservation for <% queryParams.location %> on <% queryParams.date %>?",
+          "value": "Click OK to cancel the reservation. Click cancel to abort."
+        },
+        {
+          "type": "hidden",
+          "id": "reservationId",
+          "value": "<% queryParams.reservationId %>",
+          "valueOutBinding": "launchCancelReservationWorkflow.reservationId"
+        },
+        {
+          "type": "hidden",
+          "id": "locationId",
+          "value": "<% queryParams.locationId %>",
+          "valueOutBinding": "launchCancelReservationWorkflow.location"
+        },
+        {
+          "type": "hidden",
+          "id": "reservedById",
+          "value": "<% queryParams.reservedBy %>",
+          "valueOutBinding": "launchCancelReservationWorkflow.reservedBy"
+        },
+        {
+          "type": "hidden",
+          "id": "reservationDate",
+          "value": "<% queryParams.reservationDate %>",
+          "valueOutBinding": "launchCancelReservationWorkflow.reservationDate"
+        }
+      ]
+    }
+  }
+}
