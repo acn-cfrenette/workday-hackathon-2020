@@ -37,6 +37,10 @@
     {
       "key": "workday-wql",
       "value": "https://api.workday.com/wql/v1/"
+    },
+    {
+      "key": "workday-raas",
+      "value": "https://api.workday.com/raas/"
     }
   ]
 }
