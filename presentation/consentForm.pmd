@@ -1,0 +1,69 @@
+{
+  "id": "consentForm",
+  "endPoints": [
+    {
+      "name": "worker",
+      "baseUrlType": "workday-staffing",
+      "url": "workers/me",
+      "httpMethod": "GET",
+      "authType": "sso"
+    }
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "workerOut",
+        "baseUrlType": "workday-staffing",
+        "url": "workers/me",
+        "httpMethod": "GET",
+        "authType": "sso"
+      }
+    ]
+  },
+  "presentation": {
+    "headerSize": "VPS_DEFAULT",
+    "title": {
+      "type": "title",
+      "label": "Covid Information Consent Form"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "textArea",
+          "enabled": "false",
+          "label": "Please carefully read and sign the following Informed Consent:",
+          "value": "a. I authorize this COVID-19 testing unit to conduct collection and testing for COVID-19 through a nasopharyngeal swab or blood draw, as ordered by an authorized medical provider or public health official. \n\nb. I authorize my test results to be disclosed to the county, state, or to any other governmental entity as may be required by law. \n\nc. I acknowledge that a positive test result is an indication that I must self-isolate and/or wear a mask or face covering as directed in an effort to avoid infecting others. \n\nd. I understand that, as with any medical test, there is the potential for a false positive or false negative COVID-19 test result. I, the undersigned, have been informed about the test purpose, procedures, possible benefits and risks, and I have received a copy of this Informed Consent. I have been given the opportunity to ask questions before I sign, and I have been told that I can ask additional questions at any time. I voluntarily agree to this testing for COVID-19."
+        },
+        {
+          "type": "checkBox",
+          "label": "Checkbox I agree ",
+          "id": "consentCheckBox"
+        },
+        {
+          "type": "text",
+          "enabled": "false",
+          "label": "Full Name",
+          "value": "<% worker.descriptor %>"
+        },
+        {
+          "type": "date",
+          "enabled": "false",
+          "label": "Date",
+          "value": "<% date:getTodaysDate(null) %>"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}

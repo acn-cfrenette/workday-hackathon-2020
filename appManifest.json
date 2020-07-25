@@ -1,7 +1,7 @@
 {
   "id" : "1bfa8ea1e9583dafa1fadb866b0bad80",
   "referenceId" : "contactTracingCovid_zjmvrj",
-  "name" : "workday-hackathon-2020",
+  "name" : "Reservations & Contact Tracing App (WD Extend 2020)",
   "description" : "An app to do contact tracing and reservations to let employees come into the office. Will require employees to upload test results in order to be approved.",
   "latestVersion" : "ff1ffaabb44781553be182b8418072a9",
   "organizationId" : "468f7f1a-7182-4830-843c-8225ec94bee7"

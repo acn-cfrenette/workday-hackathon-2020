@@ -1,9 +1,30 @@
 {
   "id": "home",
+  "endPoints": [
+    {
+      "name": "covidCases",
+      "baseUrlType": "covid-cases",
+      "url": "current.json",
+      "authType": "NoAuth"
+    },
+    {
+      "name": "worker",
+      "baseUrlType": "workday-staffing",
+      "url": "workers/me",
+      "authType": "sso"
+    },
+    {
+      "name": "myReservations",
+      "baseUrlType": "app",
+      "url": "reservations?reservedBy=<% worker.id %>",
+      "authType": "sso",
+      "isCollection": true
+    }
+  ],
   "presentation": {
     "title": {
       "type": "title",
-      "label": "Workday Extend"
+      "label": "COVID-19 Employee Hub"
     },
     "body": {
       "type": "section",
@@ -11,8 +32,196 @@
         {
           "type": "richText",
           "id": "hello",
-          "label": "Hello World!",
-          "value": "Welcome to your <b>Workday Extend</b> App. Deployed by the Workday Extend Plugin for IntelliJ."
+          "label": "Welcome <% worker.descriptor %>!",
+          "value": "This is the GMS <b>COVID-19</b> hub. From here you can do tasks related to coming back into the office, such as: checking COVID cases in your area, getting testing locations in your area, submitting test results, and reserving a spot in the office."
+        },
+        {
+          "type": "section",
+          "horizontal": true,
+          "children": [
+            {
+              "type": "button",
+              "label": "Find a testing site",
+              "action": "PRIMARY",
+              "taskReference": {
+                "taskId": "findTestSite"
+              }
+            },
+            {
+              "type": "button",
+              "action": "AUXILIARY",
+              "label": "Submit Test Results",
+              "taskReference": {
+                "taskId": "submitTestResult"
+              }
+            },
+            {
+              "type": "button",
+              "label": "Reserve a spot",
+              "action": "AUXILIARY",
+              "taskReference": {
+                "taskId": "reserveSpot"
+              }
+            },
+            {
+              "type": "button",
+              "label": "Check In",
+              "action": "AUXILIARY",
+              "taskReference": {
+                "taskId": "checkIn"
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "id": "gridMyReservations",
+          "gridType": "LIST",
+          "label": "My Reservations",
+          "rows": "<% myReservations.data.sort(c => { c.reservationDate }).reverse() %>",
+          "rowVariableName": "reservation",
+          "doNotAdd": "true",
+          "doNotRemoveRow": "true",
+          "selectionEnabled": "false",
+          "columns": [
+            {
+              "type": "column",
+              "columnId": "columnReservationId",
+              "cellTemplate": {
+                "type": "instanceList",
+                "label": "Reservation",
+                "instanceList": [
+                  {
+                    "id": "<% reservation.id %>",
+                    "descriptor": "<% reservation.descriptor %>",
+                    "wid": "<% reservation.id %>"
+                  }
+                ]
+              },
+              "label": "Reservation",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnLocationReserved",
+              "cellTemplate": {
+                "type": "instanceList",
+                "label": "Location",
+                "instanceList": [
+                  {
+                    "id": "<% reservation.location.id %>",
+                    "descriptor": "<% reservation.location.descriptor %>",
+                    "wid": "<% reservation.location.id %>"
+                  }
+                ]
+              },
+              "label": "Location Reserved",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnDateReserved",
+              "cellTemplate": {
+                "type": "date",
+                "value": "<% reservation.reservationDate %>",
+                "datePrecision": "DAY"
+              },
+              "label": "Date Requested",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnReservationStatus",
+              "cellTemplate": {
+                  "type": "text",
+                  "value": "<% reservation.statusOfRequest %>"
+              },
+              "label": "Request Status"
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "id": "gridCovidCases",
+          "gridType": "LIST",
+          "label": "Yesterday's COVID-19 Data",
+          "rows": "<% covidCases.sort(s => { s.state }) %>",
+          "rowVariableName": "stateCases",
+          "doNotAdd": "true",
+          "doNotRemoveRow": "true",
+          "selectionEnabled": "false",
+          "columns": [
+            {
+              "type": "column",
+              "columnId": "columnState",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.state %>"
+              },
+              "label": "State",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnNewCases",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.positiveIncrease %>"
+              },
+              "label": "New Cases Yesterday",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnNewDeaths",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.deathIncrease %>"
+              },
+              "label": "New Deaths Yesterday",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTotalPositive",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.positive %>"
+              },
+              "label": "Total Overall Positive Cases",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTotalNegative",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.negative %>"
+              },
+              "label": "Total Overall Negative Cases",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTotalOverall",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.total %>"
+              },
+              "label": "Total Overall Cases",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTotalRecovered",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.recovered %>"
+              },
+              "label": "Total Overall Recovered",
+              "sortableAndFilterable": true
+            }
+          ]
         }
       ]
     },
@@ -20,9 +229,8 @@
       "type": "footer",
       "children": [
         {
-          "type": "richText",
-          "enabled": "false",
-          "value": "Powered By Workday Extend"
+          "type": "pod",
+          "podId": "footer"
         }
       ]
     }
