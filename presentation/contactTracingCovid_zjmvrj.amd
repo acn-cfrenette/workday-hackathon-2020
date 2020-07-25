@@ -31,9 +31,16 @@
     },
     {
       "id": "submitTestResult",
-      "routingPattern": "/testResult",
+      "routingPattern": "/submitTestResult",
       "page": {
         "id": "submitTestResult"
+      }
+    },
+    {
+      "id": "covidConsentForm",
+      "routingPattern": "/covidConsentForm",
+      "page": {
+        "id": "consentForm"
       }
     },
     {
@@ -41,6 +48,13 @@
       "routingPattern": "/checkIn",
       "page": {
         "id": "checkIn"
+      }
+    },
+    {
+      "id": "success",
+      "routingPattern": "/success",
+      "page": {
+        "id": "success"
       }
     }
   ],
@@ -81,6 +95,21 @@
           "id": "successStep",
           "endsFlow": true,
           "taskId": "success"
+        }
+      ]
+    },
+    {
+      "id": "submitResultsFlow",
+      "flowSteps": [
+        {
+          "id": "submitTestResult",
+          "startsFlow": true,
+          "taskId": "submitTestResult"
+        },
+        {
+          "id": "covidConsentForm",
+          "endsFlow": true,
+          "taskId": "covidConsentForm"
         }
       ]
     }
