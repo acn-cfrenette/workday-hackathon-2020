@@ -97,15 +97,6 @@
         }
 
       ]
-    },
-    "footer": {
-      "type": "footer",
-      "children": [
-        {
-          "type": "pod",
-          "podId": "footer"
-        }
-      ]
     }
   }
 }

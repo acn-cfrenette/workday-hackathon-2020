@@ -16,6 +16,20 @@
       }
     },
     {
+      "id": "findTestSite",
+      "routingPattern": "/findTestSite",
+      "page": {
+        "id": "findTestSite"
+      }
+    },
+    {
+      "id": "viewTestSites",
+      "routingPattern": "/viewTestSites",
+      "page": {
+        "id": "viewTestSites"
+      }
+    },
+    {
       "id": "submitTestResult",
       "routingPattern": "/testResult",
       "page": {
@@ -24,6 +38,23 @@
     }
   ],
   "applicationId": "contactTracingCovid_zjmvrj",
+  "flowDefinitions": [
+    {
+      "id": "findTestSitesFlow",
+      "flowSteps": [
+        {
+          "id": "findTestSite",
+          "startsFlow": true,
+          "taskId": "findTestSite"
+        },
+        {
+          "id": "viewTestSites",
+          "endsFlow": true,
+          "taskId": "viewTestSites"
+        }
+      ]
+    }
+  ],
   "dataProviders": [
     {
       "key": "app",
@@ -36,6 +67,10 @@
     {
       "key": "covid-cases",
       "value": "https://covidtracking.com/api/v1/states/"
+    },
+    {
+      "key": "covid-test-sites",
+      "value": "https://raw.githubusercontent.com/covid-19-testing/locations/master/"
     },
     {
       "key": "workday-staffing",
