@@ -19,14 +19,14 @@
       "name": "locationHierarchies",
       "baseUrlType": "workday-raas",
       "authType": "sso",
-      "url": "/lmcneil/CRA_getLocationHierarchies?format=json",
+      "url": "lmcneil/CRA_getLocationHierarchies?format=json",
       "bestEffort": "true"
     },
     {
       "name": "locations",
       "authType": "sso",
       "baseUrlType": "workday-raas",
-      "url": "/lmcneil/CRA_getLocationsForHierarchy?Superior_Location!WID=<% locationsInstanceList.promptSelections[0] %>&format=json",
+      "url": "lmcneil/CRA_getLocationsForHierarchy?Superior_Location!WID=<% locationsInstanceList.promptSelections[0] %>&format=json",
       "bestEffort": "true",
       "deferred": "true"
     }
