@@ -1,5 +1,5 @@
 {
-  "id": "requestCreditCard",
+  "id": "reserveSpotInOffice",
   "endPoints": [
     {
       "name": "worker",
@@ -16,11 +16,21 @@
       "deferred": "true"
     },
     {
-      "name": "locations",
+      "name": "locationHierarchies",
       "baseUrlType": "workday-raas",
-      "url": "lmcneil/Office_Locations_Enabled_for_Return?Location_Usages_for_Location!WID=fbe0f826480e46978f80b361d35f31df&enabledForReturnForWork=1&Location_Type!WID=310065db1eea46a9ba1e4ff48a7c080d&format=json",
-      "authType": "sso"
+      "authType": "sso",
+      "url": "lmcneil/CRA_getLocationHierarchies?format=json",
+      "bestEffort": "true"
+    },
+    {
+      "name": "locations",
+      "authType": "sso",
+      "baseUrlType": "workday-raas",
+      "url": "lmcneil/CRA_getLocationsForHierarchy?Superior_Location!WID=<% locationsInstanceList.promptSelections[0] %>&format=json",
+      "bestEffort": "true",
+      "deferred": "true"
     }
+
   ],
   "outboundData": {
     "outboundEndPoints": [
@@ -90,7 +100,7 @@
             {
               "type": "button",
               "label": "Check Availability",
-              "action": "AUXILIARY",
+              "action": "AUXILIARY"
             }
           ]
         }
