@@ -52,7 +52,7 @@
               "action": "AUXILIARY",
               "label": "Submit Test Results",
               "taskReference": {
-                "taskId": "submitTestResult"
+                "taskId": "covidConsentForm"
               }
             },
             {
@@ -61,14 +61,6 @@
               "action": "AUXILIARY",
               "taskReference": {
                 "taskId": "reserveSpot"
-              }
-            },
-            {
-              "type": "button",
-              "label": "Check In",
-              "action": "AUXILIARY",
-              "taskReference": {
-                "taskId": "checkIn"
               }
             }
           ]
