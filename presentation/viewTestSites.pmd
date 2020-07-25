@@ -21,11 +21,6 @@
       "horizontal": false,
       "children": [
         {
-          "type": "externalLink",
-          "url": "<% list:filter(covidStates, 'name', queryParams.stateName).covid19Site %>",
-          "label": "State's COVID-19 Site"
-        },
-        {
           "type": "grid",
           "id": "gridMyReservations",
           "gridType": "LIST",
