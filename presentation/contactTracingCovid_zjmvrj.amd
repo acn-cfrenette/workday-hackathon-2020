@@ -53,6 +53,29 @@
           "taskId": "viewTestSites"
         }
       ]
+    },
+    {
+      "id": "checkInFlow",
+      "flowSteps": [
+        {
+          "id": "start",
+          "transitions": [
+            {
+              "id": "success",
+              "order": "a",
+              "value": "successStep",
+              "condition": "true"
+            }
+          ],
+          "startsFlow": true,
+          "taskId": "checkIn"
+        },
+        {
+          "id": "successStep",
+          "endsFlow": true,
+          "taskId": "success"
+        }
+      ]
     }
   ],
   "dataProviders": [

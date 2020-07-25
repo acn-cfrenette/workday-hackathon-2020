@@ -1,0 +1,34 @@
+{
+  "id": "success",
+  "endPoints": [
+  ],
+  "presentation": {
+    "headerSize": "VPS_DEFAULT",
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "conclusionView",
+          "id": "conclusionView",
+          "statuses": [
+            {
+              "icon": "SUCCESS",
+              "text": "Check-In Successful!"
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}

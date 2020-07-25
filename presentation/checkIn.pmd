@@ -1,0 +1,88 @@
+{
+  "id": "checkIn",
+  "endPoints": [
+    {
+      "name": "worker",
+      "baseUrlType": "workday-staffing",
+      "url": "workers/me",
+      "authType": "sso"
+    },
+    {
+      "name": "locations",
+      "baseUrlType": "workday-raas",
+      "url": "/lmcneil/CRA_getAllLocations?format=json",
+      "authType": "sso"
+    }
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "checkIn",
+        "baseUrlType": "app",
+        "url": "checkIns",
+        "httpMethod": "POST",
+        "authType": "sso"
+      }
+    ],
+    "responseErrorDetail": {
+      "errorSummary": "<% error %>",
+      "errors": "<% errors.map(item => {item.error}); %>"
+    }
+  },
+  "presentation": {
+    "headerSize": "VPS_DEFAULT",
+    "standardEditButtonsHidden": true,
+    "title": {
+      "type": "title",
+      "label": "Check-In"
+    },
+    "pageType": "edit",
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "id": "workerLocation",
+          "type": "instanceList",
+          "label": "Location",
+          "required": true,
+          "values": "<% locations.Report_Entry %>",
+          "selectedValues": "<% list:toList(queryParams.loc) %>",
+          "valueOutBinding": "checkIn.location.id"
+        },
+        {
+          "id": "workerId",
+          "type": "hidden",
+          "value": "<% worker.id %>",
+          "valueOutBinding": "checkIn.worker.id"
+        },
+        {
+          "id": "timestamp",
+          "type": "hidden",
+          "value": "<% date:getTodaysDateFormatted(date:getDateTimeZone('UTC'), 'yyyy-MM-dd') + 'T' + date:getTodaysDateFormatted(date:getDateTimeZone('UTC'), 'HH:mm:ss') + 'Z' %>",
+          "valueOutBinding": "checkIn.timestamp"
+        },
+        {
+          "type": "editButtonBar",
+          "editButtons": [
+            {
+              "type": "editButton",
+              "label": "Check In",
+              "buttonType": "AUXILIARY"
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}
