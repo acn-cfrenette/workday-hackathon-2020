@@ -1,0 +1,91 @@
+{
+  "applicationId": "lzTest1_zjmvrj",
+  "tasks": [
+    {
+      "id": "root",
+      "routingPattern": "/",
+      "page": {
+        "id": "home"
+      }
+    },
+    {
+      "id": "consentForm",
+      "routingPattern": "/consentForm",
+      "page": {
+        "id": "consentForm"
+      }
+    },
+    {
+      "id": "checkAvailability",
+      "routingPattern": "/checkAvailability",
+      "page": {
+        "id": "checkAvailability"
+      }
+    },
+    {
+      "id": "editOccupacy",
+      "routingPattern": "/editOccupacy",
+      "page": {
+        "id": "editOccupacy"
+      }
+    },
+    {
+      "id": "generateQRCode",
+      "routingPattern": "/generateQRCode",
+      "page": {
+        "id": "generateQRCode"
+      }
+    }
+  ],
+  "dataProviders": [
+    {
+      "key": "COMMON",
+      "value": "https://api.workday.com/common/v1"
+    },
+    {
+      "key": "CUSTOMOBJECT",
+      "value": "https://api.workday.com/customObject/v2"
+    },
+    {
+      "key": "WQL",
+      "value": "https://api.workday.com/wql/v1"
+    },
+    {
+      "key": "workday-raas",
+      "value": "https://api.workday.com/raas/"
+    }
+  ],
+  "flowDefinitions": [
+    {
+      "id": "generateQRCodeFlow",
+      "flowSteps": [
+        {
+          "id": "editOccupacyStep",
+          "taskId": "editOccupacy",
+          "transitions": [
+            {
+              "order": "a",
+              "value": "generateQRStep",
+              "condition": "<% queryParams.enabledForReturnForWork %>"
+            },
+            {
+              "order": "b",
+              "value": "homeStep",
+              "condition": "true"
+            }
+          ]
+        },
+        {
+          "id": "generateQRStep",
+          "taskId": "generateQRCode",
+          "endsFlow": true
+        },
+        {
+          "id": "homeStep",
+          "taskId": "root",
+          "endsFlow": true
+        }
+      ]
+    }
+  ]
+}
