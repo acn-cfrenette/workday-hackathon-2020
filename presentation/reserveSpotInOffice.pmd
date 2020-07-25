@@ -80,12 +80,12 @@
             {
               "type": "instanceList",
               "label": "Office Location",
-              "id": "locationWID",
+              "id": "location",
               "required": "<% true %>",
-              "values": "${locations.Report_Entry}",
+              "values": "<% locations.Report_Entry %>",
               "idKey" : "locationWID",
               "displayKey": "location",
-              "valueOutBinding": "launchReserveSpotWorkflow.locationWID"
+              "valueOutBinding": "launchReserveSpotWorkflow.location"
             },
             {
               "type": "button",
