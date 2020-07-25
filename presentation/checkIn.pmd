@@ -10,7 +10,7 @@
     {
       "name": "locations",
       "baseUrlType": "workday-raas",
-      "url": "/lmcneil/CRA_getAllLocations?format=json",
+      "url": "lmcneil/CRA_getAllLocations?format=json",
       "authType": "sso"
     }
   ],
