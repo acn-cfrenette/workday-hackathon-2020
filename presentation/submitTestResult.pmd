@@ -43,7 +43,7 @@
   "presentation": {
     "title": {
       "type": "title",
-      "label": "COVID-19 Test Result"
+      "label": "Submit your COVID-19 Test Result"
     },
     "headerSize": "STANDARD",
     "body": {
