@@ -11,7 +11,7 @@
         "httpMethod": "POST",
         "authType": "sso",
         "onSend": "<%
-          reservation;
+          self.data;
         %>"
       }
     ]
@@ -27,20 +27,34 @@
       "horizontal": false,
       "children": [
         {
-          "type": "text",
-          "id": "confirmationMessage",
-          "label": "Are you sure you want to cancel the reservation for <% reservation.location.descriptor %> on <% reservation.reservationDate %>?",
-          "value": "Click OK to cancel the reservation. Click cancel to abort."
-        }
-      ]
-    },
-    "footer": {
-      "type": "footer",
-      "children": [
-        {
           "type": "richText",
-          "enabled": "false",
-          "value": "Powered By Workday Extend"
+          "id": "confirmationMessage",
+          "label": "Are you sure you want to cancel the reservation for <% queryParams.location %> on <% queryParams.date %>?",
+          "value": "Click OK to cancel the reservation. Click cancel to abort."
+        },
+        {
+          "type": "hidden",
+          "id": "reservationId",
+          "value": "<% queryParams.id %>",
+          "valueOutBinding": "launchReserveSpotWorkflow.reservationId"
+        },
+        {
+          "type": "hidden",
+          "id": "locationId",
+          "value": "<% queryParams.locationId %>",
+          "valueOutBinding": "launchReserveSpotWorkflow.location"
+        },
+        {
+          "type": "hidden",
+          "id": "reservedById",
+          "value": "<% queryParams.reservedBy %>",
+          "valueOutBinding": "launchReserveSpotWorkflow.reservedBy"
+        },
+        {
+          "type": "hidden",
+          "id": "reservationDate",
+          "value": "<% queryParams.reservationDate %>",
+          "valueOutBinding": "launchReserveSpotWorkflow.reservationDate"
         }
       ]
     }
