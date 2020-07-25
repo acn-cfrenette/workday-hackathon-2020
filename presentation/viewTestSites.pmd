@@ -16,10 +16,19 @@
   ],
   "presentation": {
     "headerSize": "VPS_DEFAULT",
+    "title": {
+      "type": "title",
+      "label": "Test Sites"
+    },
     "body": {
       "type": "section",
       "horizontal": false,
       "children": [
+        {
+          "type": "richText",
+          "id": "locationsForState",
+          "value": "<b>Viewing sites for state:</b> <% queryParams.stateName %>"
+        },
         {
           "type": "grid",
           "id": "gridMyReservations",
