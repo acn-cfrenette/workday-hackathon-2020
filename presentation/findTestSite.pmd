@@ -31,14 +31,15 @@
       "children": [
         {
           "type": "instanceList",
-          "searchEndPoint": "<% endpoints.covidStates %>",
-          "multiSelect": "false",
           "id": "instanceListChooseState",
+          "searchEndPoint": "<% endpoints.covidStates %>",
+          "searchResultValues": "<% list:filter(covidStates, 'name', instanceListQuery) %>",
+          "multiSelect": "false",
           "label": "Choose a State",
-          "searchResultValues": "<% covidStates.name %>",
           "required": "<% true %>",
           "idKey" : "stateName",
-          "displayKey": "stateName"
+          "displayKey": "stateName",
+          "values": "<% covidStates %>"
         }
       ]
     }
