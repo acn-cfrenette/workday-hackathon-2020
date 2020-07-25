@@ -14,6 +14,13 @@
       "page": {
         "id": "reserveSpotInOffice"
       }
+    },
+    {
+      "id": "submitTestResult",
+      "routingPattern": "/testResult",
+      "page": {
+        "id": "submitTestResult"
+      }
     }
   ],
   "applicationId": "contactTracingCovid_zjmvrj",

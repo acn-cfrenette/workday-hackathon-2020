@@ -1,0 +1,153 @@
+{
+  "id": "submitTestResult",
+  "endPoints": [
+    {
+      "name": "worker",
+      "baseUrlType": "workday-staffing",
+      "url": "workers/me",
+      "authType": "sso"
+    },
+    {
+      "name": "workerSearch",
+      "baseUrlType": "workday-staffing",
+      "url": "workers?search=<% instanceListQuery %>",
+      "exclude": "<% empty(instanceListQuery) %>",
+      "authType": "sso",
+      "deferred": "true"
+    }
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "testImage",
+        "baseUrlType": "app",
+        "url": "testAttachments",
+        "httpMethod": "POST",
+        "authType": "sso",
+        "exclude": "<% empty(imageFileUploader.children) %>",
+        "multiPartFileLast": true
+      },
+      {
+        "name": "testResult",
+        "baseUrlType": "app",
+        "url": "testResults",
+        "httpMethod": "POST",
+        "authType": "sso"
+      }
+    ],
+    "responseErrorDetail": {
+      "errorSummary": "<%error%>",
+      "errors": "<%list:mapAttribute(errors, 'error')%>"
+    }
+  },
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "COVID-19 Test Result"
+    },
+    "headerSize": "STANDARD",
+    "body": {
+      "type": "section",
+      "horizontal": true,
+      "sorted": false,
+      "children": [
+        {
+          "type": "section",
+          "horizontal": false,
+          "sorted": false,
+          "children": [
+            {
+              "type": "instanceList",
+              "searchEndPoint": "<% endpoints.workerSearch %>",
+              "multiSelect": "false",
+              "id": "instanceListWorkerSearch",
+              "label": "Test Taken By",
+              "searchResultValues": "<% workerSearch.data %>",
+              "required": "<% true %>",
+              "values": "<% [worker] %>",
+              "selectedValues": "<% [worker] %>",
+              "valueOutBinding": "testResult.worker.id",
+              "_comment": "Set default value at page load to the current worker. They can search for a different worker by typing in the instanceList and hitting Enter."
+            },
+            {
+              "type": "date",
+              "id": "testDate",
+              "label": "Test Date",
+              "required": "true",
+              "datePrecision": "DAY",
+              "valueOutBinding": "testResult.dateOfTest"
+            },
+            {
+              "type": "dropdown",
+              "selectedValues": "<% list:toList('true') %>",
+              "label": "Test Result",
+              "id": "dropdownListTestResult",
+              "instanceList": [
+                {
+                  "id": "true",
+                  "descriptor": "Positive"
+                },
+                {
+                  "id": "false",
+                  "descriptor": "Negative"
+                }
+              ],
+              "required": "true",
+              "valueOutBinding": "testResult.result",
+              "valuesOut": [{"valueOutBinding": "testResult.result", "value": "<% dropdownListTestResult.value[0] == 'true' ? true : false %>"}]
+            },
+            {
+              "type": "richText",
+              "id": "description",
+              "label": "Test Description",
+              "valueOutBinding": "testResult.description",
+              "validations": [
+                {
+                  "regex": "^.{0,1000}",
+                  "errorMessage": "Maximum character count (including markup) reached: 1000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "horizontal": false,
+          "sorted": false,
+          "children": [
+            {
+              "type": "hidden",
+              "value": "<% true %>",
+              "valueOutBinding": "testResult.testTaken"
+            },
+            {
+              "type": "hidden",
+              "value": "<% worker.id %>",
+              "valueOutBinding": "testImage:data:uploadedBy.id"
+            },
+            {
+              "type": "hidden",
+              "value": "<% date:getTodaysDate(null) %>",
+              "valueOutBinding": "testImage:data:uploadedDate"
+            },
+            {
+              "type": "hidden",
+              "value": "cid:image",
+              "valueOutBinding": "testImage:data:file"
+            },
+            {
+              "type": "fileUploader",
+              "label": "Image",
+              "id": "imageFileUploader",
+              "singular": "<% true %>",
+              "compact": "<% true %>",
+              "required": "<% true %>",
+              "fileTypes": "gif,jpg,jpeg,png,doc,docx,html,htm,pdf,txt",
+              "valueOutBinding": "testImage:image:"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
