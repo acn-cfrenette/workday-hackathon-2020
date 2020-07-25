@@ -35,6 +35,13 @@
       "page": {
         "id": "submitTestResult"
       }
+    },
+    {
+      "id": "checkIn",
+      "routingPattern": "/checkIn",
+      "page": {
+        "id": "checkIn"
+      }
     }
   ],
   "applicationId": "contactTracingCovid_zjmvrj",
