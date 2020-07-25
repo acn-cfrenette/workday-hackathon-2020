@@ -49,7 +49,7 @@
             },
             {
               "type": "button",
-              "action": "AUXILIARY",
+              "action": "SECONDARY",
               "label": "Submit Test Results",
               "taskReference": {
                 "taskId": "covidConsentForm"
@@ -129,6 +129,21 @@
                   "value": "<% reservation.statusOfRequest %>"
               },
               "label": "Request Status"
+            },
+            {
+              "type": "column",
+              "columnId": "columnCancelReservation",
+              "cellTemplate": {
+                "type": "button",
+                "label": "Cancel",
+                "action": "AUXILIARY",
+                "taskReference": {
+                  "taskId": "cancelReservation",
+                  "parameterBindings": {
+                    "reservation": "<% reservation %>"
+                  }
+                }
+              }
             }
           ]
         },
@@ -136,7 +151,7 @@
           "type": "grid",
           "id": "gridCovidCases",
           "gridType": "LIST",
-          "label": "Yesterday's COVID-19 Data",
+          "label": "Latest COVID-19 Data",
           "rows": "<% covidCases.sort(s => { s.state }) %>",
           "rowVariableName": "stateCases",
           "doNotAdd": "true",
@@ -160,7 +175,7 @@
                 "type": "text",
                 "value": "<% stateCases.positiveIncrease %>"
               },
-              "label": "New Cases Yesterday",
+              "label": "New Cases",
               "sortableAndFilterable": true
             },
             {
@@ -170,7 +185,7 @@
                 "type": "text",
                 "value": "<% stateCases.deathIncrease %>"
               },
-              "label": "New Deaths Yesterday",
+              "label": "New Deaths",
               "sortableAndFilterable": true
             },
             {
