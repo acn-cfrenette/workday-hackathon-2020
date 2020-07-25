@@ -4,7 +4,7 @@
     {
       "name": "covidCases",
       "baseUrlType": "covid-cases",
-      "url": "pa/20200724.json",
+      "url": "current.json",
       "authType": "NoAuth"
     },
     {
@@ -56,36 +56,11 @@
               "taskReference": {
                 "taskId": "reserveSpot"
               }
-            }
-          ]
-        },
-        {
-          "type": "section",
-          "label": "Today's COVID-19 Data for Pennsylvania",
-          "children": [
-            {
-              "type": "richText",
-              "value": "<b>Total New Cases Today</b>: <% covidCases.positiveIncrease %>"
             },
             {
-              "type": "richText",
-              "value": "<b>Total New Deaths Today</b>: <% covidCases.deathIncrease %>"
-            },
-            {
-              "type": "richText",
-              "value": "<b>Total Overall Positive Cases</b>: <% covidCases.positive %>"
-            },
-            {
-              "type": "richText",
-              "value": "<b>Total Overall Negative Cases</b>: <% covidCases.negative %>"
-            },
-            {
-              "type": "richText",
-              "value": "<b>Total Overall Cases</b>: <% covidCases.total %>"
-            },
-            {
-              "type": "richText",
-              "value": "<b>Total Overall Recovered</b>: <% covidCases.recovered %>"
+              "type": "button",
+              "label": "Check In",
+              "action": "AUXILIARY"
             }
           ]
         },
@@ -153,6 +128,89 @@
                   "value": "<% reservation.statusOfRequest %>"
               },
               "label": "Request Status"
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "id": "gridCovidCases",
+          "gridType": "LIST",
+          "label": "Yesterday's COVID-19 Data",
+          "rows": "<% covidCases.sort(s => { s.state }) %>",
+          "rowVariableName": "stateCases",
+          "doNotAdd": "true",
+          "doNotRemoveRow": "true",
+          "selectionEnabled": "false",
+          "columns": [
+            {
+              "type": "column",
+              "columnId": "columnState",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.state %>"
+              },
+              "label": "State",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnNewCases",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.positiveIncrease %>"
+              },
+              "label": "New Cases Yesterday",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnNewDeaths",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.deathIncrease %>"
+              },
+              "label": "New Deaths Yesterday",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTotalPositive",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.positive %>"
+              },
+              "label": "Total Overall Positive Cases",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTotalNegative",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.negative %>"
+              },
+              "label": "Total Overall Negative Cases",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTotalOverall",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.total %>"
+              },
+              "label": "Total Overall Cases",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTotalRecovered",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.recovered %>"
+              },
+              "label": "Total Overall Recovered",
+              "sortableAndFilterable": true
             }
           ]
         }
