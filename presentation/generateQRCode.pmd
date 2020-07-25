@@ -1,0 +1,39 @@
+{
+  "id": "generateQRCode",
+  "endPoints": [
+  ],
+  "presentation": {
+    "headerSize": "VPS_DEFAULT",
+    "title": {
+      "type": "title",
+      "label": "Return to Office QR Code"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "text",
+          "id": "debug",
+          "label": "debug",
+          "value": "<% queryParams.location %>"
+        },
+        {
+          "type": "image",
+          "id": "QRcode",
+          "imageUri": "https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://wcpdev.wd101.myworkday.com/hack02_wcpdev1/d/wday/app/contactTracingCovid_zjmvrj/contactTracingCovid_zjmvrj/checkIn%3Floc=<% queryParams.location %>&choe=UTF-8"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}

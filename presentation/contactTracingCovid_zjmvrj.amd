@@ -56,6 +56,20 @@
       "page": {
         "id": "success"
       }
+    },
+    {
+      "id": "editOccupancy",
+      "routingPattern": "/editOccupancy",
+      "page": {
+        "id": "editOccupancy"
+      }
+    },
+    {
+      "id": "generateQRCode",
+      "routingPattern": "/generateQRCode",
+      "page": {
+        "id": "generateQRCode"
+      }
     }
   ],
   "applicationId": "contactTracingCovid_zjmvrj",
@@ -112,6 +126,37 @@
           "taskId": "covidConsentForm"
         }
       ]
+    },
+    {
+      "id": "generateQRCodeFlow",
+      "flowSteps": [
+        {
+          "id": "editOccupancyStep",
+          "taskId": "editOccupancy",
+          "transitions": [
+            {
+              "order": "a",
+              "value": "generateQRStep",
+              "condition": "<% queryParams.enabledForReturnForWork %>"
+            },
+            {
+              "order": "b",
+              "value": "homeStep",
+              "condition": "true"
+            }
+          ]
+        },
+        {
+          "id": "generateQRStep",
+          "taskId": "generateQRCode",
+          "endsFlow": true
+        },
+        {
+          "id": "homeStep",
+          "taskId": "root",
+          "endsFlow": true
+        }
+      ]
     }
   ],
   "dataProviders": [
@@ -146,6 +191,10 @@
     {
       "key": "workday-raas",
       "value": "https://api.workday.com/raas/"
+    },
+    {
+      "key": "workday-custom-obj",
+      "value": "https://api.workday.com/customObject/v2/"
     }
   ]
 }
