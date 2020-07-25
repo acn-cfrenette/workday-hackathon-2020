@@ -17,8 +17,9 @@
     },
     {
       "id": "cancelReservation",
+      "routingPattern": "/cancelReservation",
       "page": {
-        "id": "reserveSpotInOffice"
+        "id": "cancelReservation"
       }
     },
     {
@@ -75,13 +76,6 @@
       "routingPattern": "/generateQRCode",
       "page": {
         "id": "generateQRCode"
-      }
-    },
-    {
-      "id": "cancelReservation",
-      "routingPattern": "/cancelReservation",
-      "page": {
-        "id": "cancelReservation"
       }
     }
   ],
