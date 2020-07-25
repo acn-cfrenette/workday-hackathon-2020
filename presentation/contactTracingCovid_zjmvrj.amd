@@ -27,6 +27,10 @@
       "value": "https://api.workday.com/workflows/apps/<% site.applicationId %>/"
     },
     {
+      "key": "covid-cases",
+      "value": "https://covidtracking.com/api/v1/states/"
+    },
+    {
       "key": "workday-staffing",
       "value": "https://api.workday.com/staffing/v1/"
     },
