@@ -42,7 +42,10 @@
             {
               "type": "button",
               "label": "Find a testing site",
-              "action": "PRIMARY"
+              "action": "PRIMARY",
+              "taskReference": {
+                "taskId": "findTestSite"
+              }
             },
             {
               "type": "button",
