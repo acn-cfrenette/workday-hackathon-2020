@@ -38,8 +38,9 @@
         },
         {
           "type": "checkBox",
-          "label": "Checkbox I agree ",
-          "id": "consentCheckBox"
+          "label": "I agree!",
+          "id": "consentCheckBox",
+          "required": true
         },
         {
           "type": "text",
