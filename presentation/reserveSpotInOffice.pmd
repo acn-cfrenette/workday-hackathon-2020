@@ -92,6 +92,9 @@
               "label": "Pick your Location",
               "id": "locationsInstanceList",
               "values": "<% locationHierarchies.Report_Entry %>",
+              "idKey" : "locationWID",
+              "displayKey": "location",
+              "valueOutBinding": "launchReserveSpotWorkflow.location",
               "monikerLevels": [
                 {
                   "type": "monikerLevel",
