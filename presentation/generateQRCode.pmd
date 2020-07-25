@@ -21,7 +21,7 @@
         {
           "type": "image",
           "id": "QRcode",
-          "imageUri": "https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://wcpdev.wd101.myworkday.com/hack02_wcpdev1/d/wday/app/contactTracingCovid_zjmvrj/contactTracingCovid_zjmvrj/checkIn%3Floc=<% queryParams.location %>&choe=UTF-8"
+          "imageUri": "https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://wcpdev.wd101.myworkday.com/hack02_wcpdev1/d/wday/app/contactTracingCovid_zjmvrj/contactTracingCovid_zjmvrj/checkIn.htmld%3Floc=<% queryParams.location %>&choe=UTF-8"
         }
       ]
     },
