@@ -141,7 +141,7 @@
                 "taskReference": {
                   "taskId": "cancelReservation",
                   "parameterBindings": {
-                    "id": "<% reservation.id %>",
+                    "reservationId": "<% reservation.id %>",
                     "location": "<% reservation.location.descriptor %>",
                     "locationId": "<% reservation.location.id %>",
                     "date": "<% reservation.reservationDate %>",
