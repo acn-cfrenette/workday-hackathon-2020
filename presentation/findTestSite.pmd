@@ -1,0 +1,46 @@
+{
+  "id": "findTestSite",
+  "endPoints": [
+    {
+      "name": "covidStates",
+      "baseUrlType": "covid-cases",
+      "url": "info.json",
+      "authType": "NoAuth"
+    }
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "type": "outboundVariable",
+        "name": "sampleFlowVariables",
+        "variableScope": "flow",
+        "values": [
+          {
+            "outboundPath": "stateName",
+            "value": "<% string:lowercase(stateName) %>"
+          }
+        ]
+      }
+    ]
+  },
+  "presentation": {
+    "headerSize": "VPS_DEFAULT",
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "instanceList",
+          "searchEndPoint": "<% endpoints.covidStates %>",
+          "multiSelect": "false",
+          "id": "instanceListChooseState",
+          "label": "Choose a State",
+          "searchResultValues": "<% covidStates.name %>",
+          "required": "<% true %>",
+          "idKey" : "stateName",
+          "displayKey": "stateName"
+        }
+      ]
+    }
+  }
+}
