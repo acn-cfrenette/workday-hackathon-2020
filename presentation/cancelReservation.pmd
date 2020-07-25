@@ -1,0 +1,48 @@
+{
+  "id": "cancelReservation",
+  "endPoints": [
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "launchCancelReservationWorkflow",
+        "baseUrlType": "workflow",
+        "url": "workflows/CancelReservationWorkflow/launch",
+        "httpMethod": "POST",
+        "authType": "sso",
+        "onSend": "<%
+          reservation;
+        %>"
+      }
+    ]
+  },
+  "presentation": {
+    "headerSize": "VPS_DEFAULT",
+    "title": {
+      "type": "title",
+      "label": "Cancel Your Reservation"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "text",
+          "id": "confirmationMessage",
+          "label": "Are you sure you want to cancel the reservation for <% reservation.location.descriptor %> on <% reservation.reservationDate %>?",
+          "value": "Click OK to cancel the reservation. Click cancel to abort."
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}
