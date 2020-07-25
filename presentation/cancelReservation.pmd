@@ -14,7 +14,11 @@
           self.data;
         %>"
       }
-    ]
+    ],
+    "responseErrorDetail": {
+      "errorSummary": "<% error %>",
+      "errors": "<% errors.map(item => { item.error }); %>"
+    }
   },
   "presentation": {
     "headerSize": "VPS_DEFAULT",
@@ -27,7 +31,7 @@
       "horizontal": false,
       "children": [
         {
-          "type": "richText",
+          "type": "readOnlyText",
           "id": "confirmationMessage",
           "label": "Are you sure you want to cancel the reservation for <% queryParams.location %> on <% queryParams.date %>?",
           "value": "Click OK to cancel the reservation. Click cancel to abort."
@@ -35,26 +39,26 @@
         {
           "type": "hidden",
           "id": "reservationId",
-          "value": "<% queryParams.id %>",
-          "valueOutBinding": "launchReserveSpotWorkflow.reservationId"
+          "value": "<% queryParams.reservationId %>",
+          "valueOutBinding": "launchCancelReservationWorkflow.reservationId"
         },
         {
           "type": "hidden",
           "id": "locationId",
           "value": "<% queryParams.locationId %>",
-          "valueOutBinding": "launchReserveSpotWorkflow.location"
+          "valueOutBinding": "launchCancelReservationWorkflow.location"
         },
         {
           "type": "hidden",
           "id": "reservedById",
           "value": "<% queryParams.reservedBy %>",
-          "valueOutBinding": "launchReserveSpotWorkflow.reservedBy"
+          "valueOutBinding": "launchCancelReservationWorkflow.reservedBy"
         },
         {
           "type": "hidden",
           "id": "reservationDate",
           "value": "<% queryParams.reservationDate %>",
-          "valueOutBinding": "launchReserveSpotWorkflow.reservationDate"
+          "valueOutBinding": "launchCancelReservationWorkflow.reservationDate"
         }
       ]
     }
