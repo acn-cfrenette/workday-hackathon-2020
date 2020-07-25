@@ -17,7 +17,7 @@
         "values": [
           {
             "outboundPath": "stateName",
-            "value": "<% string:lowercase(stateName) %>"
+            "value": "<% string:lowercase(instanceListChooseState.value[0]) %>"
           }
         ]
       }
@@ -25,6 +25,10 @@
   },
   "presentation": {
     "headerSize": "VPS_DEFAULT",
+    "title": {
+      "type": "title",
+      "label": "Find Test Sites by State"
+    },
     "body": {
       "type": "section",
       "horizontal": false,
@@ -32,13 +36,11 @@
         {
           "type": "instanceList",
           "id": "instanceListChooseState",
-          "searchEndPoint": "<% endpoints.covidStates %>",
-          "searchResultValues": "<% list:filter(covidStates, 'name', instanceListQuery) %>",
           "multiSelect": "false",
           "label": "Choose a State",
           "required": "<% true %>",
-          "idKey" : "stateName",
-          "displayKey": "stateName",
+          "idKey" : "name",
+          "displayKey": "name",
           "values": "<% covidStates %>"
         }
       ]
