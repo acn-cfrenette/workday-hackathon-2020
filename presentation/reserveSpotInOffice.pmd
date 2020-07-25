@@ -1,5 +1,5 @@
 {
-  "id": "requestCreditCard",
+  "id": "reserveSpotInOffice",
   "endPoints": [
     {
       "name": "worker",
