@@ -7,7 +7,36 @@
       "page": {
         "id": "home"
       }
+    },
+    {
+      "id": "reserveSpot",
+      "routingPattern": "/reserveSpot",
+      "page": {
+        "id": "reserveSpotInOffice"
+      }
     }
   ],
-  "applicationId": "contactTracingCovid_zjmvrj"
+  "applicationId": "contactTracingCovid_zjmvrj",
+  "dataProviders": [
+    {
+      "key": "app",
+      "value": "https://api.workday.com/apps/<% site.applicationId %>/v1/"
+    },
+    {
+      "key": "workflow",
+      "value": "https://api.workday.com/workflows/apps/<% site.applicationId %>/"
+    },
+    {
+      "key": "workday-staffing",
+      "value": "https://api.workday.com/staffing/v1/"
+    },
+    {
+      "key": "workday-bp",
+      "value": "https://api.workday.com/businessProcess/v1/"
+    },
+    {
+      "key": "workday-wql",
+      "value": "https://api.workday.com/wql/v1/"
+    }
+  ]
 }
