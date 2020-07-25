@@ -2,9 +2,9 @@
   "id": "consentForm",
   "endPoints": [
     {
-      "name": "workerInfo",
-      "baseUrlType": "COMMON",
-      "url": "/workers/me",
+      "name": "worker",
+      "baseUrlType": "workday-staffing",
+      "url": "workers/me",
       "httpMethod": "GET",
       "authType": "sso"
     }
@@ -12,9 +12,9 @@
   "outboundData": {
     "outboundEndPoints": [
       {
-        "name": "workerInfoOut",
-        "baseUrlType": "COMMON",
-        "url": "/workers/me",
+        "name": "workerOut",
+        "baseUrlType": "workday-staffing",
+        "url": "workers/me",
         "httpMethod": "GET",
         "authType": "sso"
       }
@@ -45,7 +45,7 @@
           "type": "text",
           "enabled": "false",
           "label": "Full Name",
-          "value": "<% workerInfo.descriptor %>"
+          "value": "<% worker.descriptor %>"
         },
         {
           "type": "date",
