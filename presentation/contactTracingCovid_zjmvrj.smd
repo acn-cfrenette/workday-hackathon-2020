@@ -1,21 +1,15 @@
 {
-  "id": "contactTracingCovid_zjmvrj",
-  "languages": [
-    {
-      "code": "en-US",
-      "description": "English"
-    }
-  ],
-  "siteAuth": {
-    "authTypes": [
-      {
-        "scheme": "SSO",
-        "id": "sso"
-      }
-    ]
+  "id" : "contactTracingCovid_zjmvrj",
+  "siteId" : "contactTracingCovid_zjmvrj",
+  "siteAuth" : {
+    "authTypes" : [ {
+      "id" : "sso",
+      "scheme" : "SSO"
+    } ]
   },
-  "siteId": "contactTracingCovid_zjmvrj",
-  "cdnEnabled": true,
-  "siteProperties": [ ],
-  "applicationId": "contactTracingCovid_zjmvrj"
+  "languages" : [ {
+    "code" : "en-US",
+    "description" : "English"
+  } ],
+  "applicationId" : "contactTracingCovid_zjmvrj"
 }
