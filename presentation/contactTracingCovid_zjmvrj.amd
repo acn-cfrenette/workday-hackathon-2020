@@ -16,6 +16,12 @@
       }
     },
     {
+      "id": "cancelReservation",
+      "page": {
+        "id": "reserveSpotInOffice"
+      }
+    },
+    {
       "id": "findTestSite",
       "routingPattern": "/findTestSite",
       "page": {
@@ -69,6 +75,13 @@
       "routingPattern": "/generateQRCode",
       "page": {
         "id": "generateQRCode"
+      }
+    },
+    {
+      "id": "cancelReservation",
+      "routingPattern": "/cancelReservation",
+      "page": {
+        "id": "cancelReservation"
       }
     }
   ],
