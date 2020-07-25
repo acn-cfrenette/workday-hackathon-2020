@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "name": "ReserveSpot",
+  "label": "Reserve Spot",
+  "description": "Business Process to reserve a spot for the employee in office",
+  "targetBusinessObject": "reserveSpot",
+  "approvalStep": {
+    "actions": [
+      "APPROVE",
+      "DENY"
+    ]
+  }
+}
