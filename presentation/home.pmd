@@ -46,8 +46,11 @@
             },
             {
               "type": "button",
-              "label": "Submit test results",
-              "action": "AUXILIARY"
+              "action": "AUXILIARY",
+              "label": "Submit Test Results",
+              "taskReference": {
+                "taskId": "submitTestResult"
+              }
             },
             {
               "type": "button",
