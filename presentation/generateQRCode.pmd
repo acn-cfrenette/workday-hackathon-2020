@@ -13,10 +13,15 @@
       "horizontal": false,
       "children": [
         {
-          "type": "text",
+          "type": "hidden",
           "id": "debug",
           "label": "debug",
           "value": "<% queryParams.location %>"
+        },
+        {
+          "type": "readOnlyText",
+          "label": "QR Check-in Code for location",
+          "value": "Print out and put at location to have employees check in!"
         },
         {
           "type": "image",

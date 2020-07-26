@@ -61,6 +61,14 @@
               "taskReference": {
                 "taskId": "covidConsentForm"
               }
+            },
+            {
+              "type": "button",
+              "action": "AUXILIARY",
+              "label": "Return to Work Analytics",
+              "taskReference": {
+                "taskId": "checkInChart"
+              }
             }
           ]
         },
@@ -77,8 +85,6 @@
               "rows": "<%
                 myTestResults.data.sort(c => { c.dateOfTest })
                   .reverse()
-
-                  // .filter(x => {!x.approved})
                 %>",
               "rowVariableName": "testResult",
               "doNotAdd": "true",

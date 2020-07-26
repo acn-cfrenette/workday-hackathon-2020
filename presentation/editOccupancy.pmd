@@ -25,7 +25,7 @@
     {
       "name": "locationOccupacy",
       "baseUrlType": "workday-custom-obj",
-      "url": "customObjects/locationReturnToWorkSettings/<% locationWid %>",
+      "url": "customObjects/locationReturnToWorkSettings/<% id %>",
       "httpMethod": "GET",
       "authType": "sso",
       "deferred": "true"
@@ -62,7 +62,7 @@
     "headerSize": "VPS_DEFAULT",
     "title": {
       "type": "title",
-      "label": "Return to Office"
+      "label": "Edit Occupancy for Locations"
     },
     "body": {
       "type": "section",
@@ -74,11 +74,10 @@
           "id": "locationInst",
           "required": "<% true %>",
           "values": "<% locationsRaaS.Report_Entry %>",
-          "idKey": "locationWID",
+          "idKey": "id",
           "displayKey": "location",
           "onChange": "<%
-
-            var locationData = locationOccupacy.invoke({'locationWid':self.value[0]});
+            var locationData = locationOccupacy.invoke({'id':self.value[0]});
             debug.value = locationData;
             enabledForReturnForWork.value = locationData.enabledForReturnForWork;
             occupacy.value = locationData.allowedOccupancy;
@@ -89,7 +88,7 @@
           "type": "fieldSet",
           "children": [
             {
-              "type": "text",
+              "type": "hidden",
               "id": "debug",
               "label": "debug"
             },
@@ -102,7 +101,7 @@
             {
               "type": "number",
               "id": "occupacy",
-              "label": "Occupacy",
+              "label": "Occupancy",
               "valueOutBinding": "locationOccupacyOut.allowedOccupancy"
             },
             {

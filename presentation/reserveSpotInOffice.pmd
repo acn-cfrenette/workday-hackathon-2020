@@ -22,27 +22,20 @@
       "authType": "sso"
     },
     {
-       "name": "locations",
-       "baseUrlType": "workday-raas",
-       "authType": "sso",
-       "url": "/lmcneil/CRA_getAllLocations?format=json",
-       "bestEffort": "true"
-
-     },
-    {
       "name": "reservations",
       "authType": "sso",
       "baseUrlType": "workday-raas",
-      "url":"/lmcneil/Office_Reservation_Requests?format=json",
+      "url":"lmcneil/Office_Reservation_Requests?format=json",
       "bestEffort": "true"
     }
 
   ],
-  "script": "<% var checkAvailability = function(locationId) {
+  "script": "<%
+      var checkAvailability = function(locationId) {
       var locationDetails = locations.Report_Entry.filter(loc => {loc.id == locationId});
       var activeReservations = reservations.Report_Entry.filter(reservation => {reservation.statusOfRequest != 'Cancelled'});
       var activeForThisLocation = activeReservations.filter(reservation => {reservation.location.id == locationDetails[0].id});
-      return ((locationDetails[0].maximumOccupancy * locationDetails[0].allowedOccupancy)/100 - activeForThisLocation.size()) >= 1;
+      return (locationDetails[0].currentAllowedOccupancy - activeForThisLocation.size()) >= 1;
       };
     %>",
   "outboundData": {
@@ -63,6 +56,15 @@
       "errors": "<% errors.map(item => { item.error }); %>"
     }
   },
+  "onSubmit": "<%
+    if (locationAvailable.value) {
+        location.clearError();
+    }
+    else {
+        location.value[0] = '';
+        location.setError('That location is full! Choose another.');
+    }
+   %>",
   "presentation": {
     "title": {
       "type": "title",
@@ -106,14 +108,18 @@
               "id": "location",
               "required": "<% true %>",
               "values": "<% locations.Report_Entry %>",
-              "idKey" : "locationWID",
+              "idKey" : "id",
               "displayKey": "location",
-              "valueOutBinding": "launchReserveSpotWorkflow.location"
+              "valueOutBinding": "launchReserveSpotWorkflow.location",
+              "onChange": "<%
+                locationAvailable.value = checkAvailability(self.value[0]);
+                location.clearError();
+              %>"
             },
             {
-              "type": "richText",
-              "label": "Availability:",
-              "value": "<% checkAvailability(location.value[0] ? 'AVAILABLE' : 'NOT AVAILABLE' ) %>>"
+              "type": "hidden",
+              "id": "locationAvailable",
+              "value": false
             }
           ]
         }

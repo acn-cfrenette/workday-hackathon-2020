@@ -41,7 +41,7 @@
     "headerSize": "VPS_DEFAULT",
     "title": {
       "type": "title",
-      "label": "Return to Work"
+      "label": "Return to Work Analytics"
     },
     "body": {
       "type": "section",
