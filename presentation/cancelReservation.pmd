@@ -5,14 +5,11 @@
   "outboundData": {
     "outboundEndPoints": [
       {
-        "name": "launchCancelReservationWorkflow",
-        "baseUrlType": "workflow",
-        "url": "workflows/CancelReservationWorkflow/launch",
-        "httpMethod": "POST",
-        "authType": "sso",
-        "onSend": "<%
-          self.data;
-        %>"
+        "name": "cancelReservationOut",
+        "baseUrlType": "app",
+        "url": "reservations/<% queryParams.reservationId %>",
+        "httpMethod": "PUT",
+        "authType": "sso"
       }
     ],
     "_responseErrorDetail": {
@@ -38,27 +35,27 @@
         },
         {
           "type": "hidden",
-          "id": "reservationId",
-          "value": "<% queryParams.reservationId %>",
-          "valueOutBinding": "launchCancelReservationWorkflow.reservationId"
-        },
-        {
-          "type": "hidden",
           "id": "locationId",
           "value": "<% queryParams.locationId %>",
-          "valueOutBinding": "launchCancelReservationWorkflow.location"
+          "valueOutBinding": "cancelReservationOut.location.id"
         },
         {
           "type": "hidden",
           "id": "reservedById",
           "value": "<% queryParams.reservedBy %>",
-          "valueOutBinding": "launchCancelReservationWorkflow.reservedBy"
+          "valueOutBinding": "cancelReservationOut.reservedBy.id"
         },
         {
           "type": "hidden",
           "id": "reservationDate",
           "value": "<% queryParams.reservationDate %>",
-          "valueOutBinding": "launchCancelReservationWorkflow.reservationDate"
+          "valueOutBinding": "cancelReservationOut.reservationDate"
+        },
+        {
+          "type": "hidden",
+          "id": "cancelledText",
+          "value": "Cancelled",
+          "valueOutBinding": "cancelReservationOut.statusOfRequest"
         }
       ]
     }
