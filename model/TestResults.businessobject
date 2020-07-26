@@ -34,7 +34,8 @@
       "id": 4,
       "name": "testTaken",
       "type": "BOOLEAN",
-      "label": "Test Taken"
+      "label": "Test Taken",
+
     },
     {
       "id": 5,
@@ -48,8 +49,7 @@
       "name": "testImage",
       "type": "SINGLE_INSTANCE",
       "label": "Test Image",
-      "target": "TestAttachment",
-      "secureByTarget": true
+      "target": "TestAttachment"
     },
     {
       "id": 7,
