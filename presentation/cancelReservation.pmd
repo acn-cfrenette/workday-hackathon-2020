@@ -33,7 +33,7 @@
         {
           "type": "readOnlyText",
           "id": "confirmationMessage",
-          "label": "Are you sure you want to cancel the reservation for <% queryParams.location %> on <% queryParams.date %>?",
+          "label": "Are you sure you want to cancel the reservation for <% queryParams.location %> on <% queryParams.reservationDate %>?",
           "value": "Click OK to cancel the reservation. Click cancel to abort."
         },
         {

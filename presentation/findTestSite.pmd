@@ -17,7 +17,7 @@
         "values": [
           {
             "outboundPath": "stateName",
-            "value": "<% string:lowercase(instanceListChooseState.value[0]) %>"
+            "value": "<% instanceListChooseState.value[0].lowerCase() %>"
           }
         ]
       }
