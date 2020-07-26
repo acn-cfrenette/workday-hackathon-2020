@@ -1,0 +1,14 @@
+{
+  "id": 2,
+  "name": "SubmitTestResult",
+  "label": "Submit Test Result",
+  "description": "Business Process Type for Submit Test Result",
+  "targetBusinessObject": "TestResults",
+  "approvalStep": {
+    "actions": [
+      "APPROVE",
+      "DENY"
+    ],
+    "pageRoute": "/testResultApproval"
+  }
+}
