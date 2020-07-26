@@ -20,9 +20,31 @@
       "baseUrlType": "workday-raas",
       "url": "lmcneil/Office_Locations_Enabled_for_Return?Location_Usages_for_Location!WID=fbe0f826480e46978f80b361d35f31df&enabledForReturnForWork=1&Location_Type!WID=310065db1eea46a9ba1e4ff48a7c080d&format=json",
       "authType": "sso"
+    },
+    {
+       "name": "locations",
+       "baseUrlType": "workday-raas",
+       "authType": "sso",
+       "url": "/lmcneil/CRA_getAllLocations?format=json",
+       "bestEffort": "true"
+
+     },
+    {
+      "name": "reservations",
+      "authType": "sso",
+      "baseUrlType": "workday-raas",
+      "url":"/lmcneil/Office_Reservation_Requests?format=json",
+      "bestEffort": "true"
     }
 
   ],
+  "script": "<% var checkAvailability = function(locationId) {
+      var locationDetails = locations.Report_Entry.filter(loc => {loc.id == locationId});
+      var activeReservations = reservations.Report_Entry.filter(reservation => {reservation.statusOfRequest != 'Cancelled'});
+      var activeForThisLocation = activeReservations.filter(reservation => {reservation.location.id == locationDetails[0].id});
+      return ((locationDetails[0].maximumOccupancy * locationDetails[0].allowedOccupancy)/100 - activeForThisLocation.size()) >= 1;
+      };
+    %>",
   "outboundData": {
     "outboundEndPoints": [
       {
@@ -89,9 +111,9 @@
               "valueOutBinding": "launchReserveSpotWorkflow.location"
             },
             {
-              "type": "button",
-              "label": "Check Availability",
-              "action": "AUXILIARY"
+              "type": "richText",
+              "label": "Availability:",
+              "value": "<% checkAvailability(location.value[0] ? 'AVAILABLE' : 'NOT AVAILABLE' ) %>>"
             }
           ]
         }
