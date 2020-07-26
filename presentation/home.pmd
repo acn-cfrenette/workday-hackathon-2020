@@ -74,7 +74,11 @@
               "id": "gridMyTestResults",
               "gridType": "LIST",
               "label": "My Test Result Submissions",
-              "rows": "<% myTestResults.data.sort(c => { c.dateOfTest }).reverse() %>",
+              "rows": "<%
+                myTestResults.data.sort(c => { c.dateOfTest })
+                  .reverse()
+                  .filter(x => {!x.approved})
+                %>",
               "rowVariableName": "testResult",
               "doNotAdd": "true",
               "doNotRemoveRow": "true",
@@ -144,7 +148,11 @@
           "id": "gridMyReservations",
           "gridType": "LIST",
           "label": "My Reservations",
-          "rows": "<% myReservations.data.sort(c => { c.reservationDate }).reverse() %>",
+          "rows": "<%
+            myReservations.data.sort(c => { c.reservationDate })
+              .reverse()
+              .filter(x => {x.statusOfRequest != 'Cancelled'})
+            %>",
           "rowVariableName": "reservation",
           "doNotAdd": "true",
           "doNotRemoveRow": "true",
