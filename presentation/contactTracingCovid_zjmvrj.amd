@@ -77,6 +77,13 @@
       "page": {
         "id": "generateQRCode"
       }
+    },
+    {
+      "id": "checkInChart",
+      "routingPattern": "/checkInChart",
+      "page": {
+        "id": "checkInChart"
+      }
     }
   ],
   "applicationId": "contactTracingCovid_zjmvrj",
