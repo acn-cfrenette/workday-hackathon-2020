@@ -161,8 +161,8 @@
           "gridType": "LIST",
           "label": "My Reservations",
           "rows": "<%
-                    var filterOutCancelled = list:filter(myReservations.data, x => {x.statusOfRequest != 'Cancelled'});
-                    var filterOutBeforeToday = list:filter(filterOutCancelled.data, x => {date:parseDateString(x.reservationDate) >= date:getTodaysDate(null)});
+                    var filterOutCancelled = myReservations.data.filter(x => {x.statusOfRequest != 'Cancelled'});
+                    var filterOutBeforeToday = filterOutCancelled.data(x => {date:parseDateString(x.reservationDate) >= date:getTodaysDate(null)});
                     filterOutBeforeToday.data.sort(c => { c.date }).reverse();
                   %>",
           "rowVariableName": "reservation",
