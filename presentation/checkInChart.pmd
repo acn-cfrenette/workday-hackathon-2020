@@ -48,6 +48,14 @@
       "horizontal": false,
       "children": [
         {
+          "type": "button",
+          "label": "Back to COVID-19 Employee Hub",
+          "action": "PRIMARY",
+          "taskReference": {
+            "taskId": "root"
+          }
+        },
+        {
           "type": "overlaidAreaChart",
           "rowVariableName": "row",
           "rows": "<% getFakeData() %>",
