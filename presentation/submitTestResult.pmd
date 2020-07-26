@@ -145,6 +145,12 @@
               "valueOutBinding": "testImage:data:file"
             },
             {
+              "type": "hidden",
+              "id": "approved",
+              "value": false,
+              "valueOutBinding": "launchSubmitTestResultWorkflow.approved"
+            },
+            {
               "type": "fileUploader",
               "label": "Image",
               "id": "imageFileUploader",
