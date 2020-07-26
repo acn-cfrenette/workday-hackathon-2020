@@ -1,0 +1,96 @@
+{
+  "id": "viewTestSites",
+  "endPoints": [
+    {
+      "name": "covidTestSites",
+      "baseUrlType": "covid-test-sites",
+      "url": "<% queryParams.stateName %>/locations.json",
+      "authType": "NoAuth"
+    },
+    {
+      "name": "covidStates",
+      "baseUrlType": "covid-cases",
+      "url": "info.json",
+      "authType": "NoAuth"
+    }
+  ],
+  "presentation": {
+    "headerSize": "VPS_DEFAULT",
+    "title": {
+      "type": "title",
+      "label": "COVID-19 Testing Sites"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "button",
+          "label": "Back to COVID-19 Employee Hub",
+          "action": "PRIMARY",
+          "taskReference": {
+            "taskId": "root"
+          }
+        },
+        {
+          "type": "richText",
+          "id": "locationsForState",
+          "value": "<b>Viewing sites for state:</b> <% queryParams.stateName %>"
+        },
+        {
+          "type": "grid",
+          "id": "gridMyReservations",
+          "gridType": "LIST",
+          "label": "Test Sites Avaiable",
+          "rows": "<% covidTestSites.sort(c => { c.name }) %>",
+          "rowVariableName": "testSite",
+          "doNotAdd": "true",
+          "doNotRemoveRow": "true",
+          "selectionEnabled": "false",
+          "columns": [
+            {
+              "type": "column",
+              "columnId": "columnTestSiteName",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% testSite.name %>"
+              },
+              "label": "Site Name",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnSiteDescription",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% testSite.description %>"
+              },
+              "label": "Description",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTransportation",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% testSite.transportation %>"
+              },
+              "label": "Transportation",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnLastUpdated",
+              "cellTemplate": {
+                "type": "date",
+                "value": "<% testSite.updated %>",
+                "datePrecision": "DAY"
+              },
+              "label": "Last Updated"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

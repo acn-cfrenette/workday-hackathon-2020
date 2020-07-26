@@ -1,0 +1,93 @@
+{
+  "id": "checkInChart",
+  "endPoints": [
+  ],
+  "script": "<%
+    var getFakeData = function() {
+      var data = [
+  {
+    'Date': '2020-06-29',
+    'Order': '4',
+    'Embarcadero Tower 1': '441',
+    'Embarcadero Tower 2': '30',
+    '1155 Building': '316'
+  },
+  {
+    'Date': '2020-07-06',
+    'Order': '3',
+    'Embarcadero Tower 1': '508',
+    'Embarcadero Tower 2': '33',
+    '1155 Building': '357'
+  },
+  {
+    'Date': '2020-07-13',
+    'Order': '3',
+    'Embarcadero Tower 1': '590',
+    'Embarcadero Tower 2': '37',
+    '1155 Building': '400'
+  },
+  {
+    'Date': '2020-07-20',
+    'Order': '1',
+    'Embarcadero Tower 1': '670',
+    'Embarcadero Tower 2': '42',
+    '1155 Building': '444'
+  }
+];
+      return data;
+    };
+  %>",
+  "presentation": {
+    "headerSize": "VPS_DEFAULT",
+    "title": {
+      "type": "title",
+      "label": "Return to Work Analytics"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "overlaidAreaChart",
+          "rowVariableName": "row",
+          "rows": "<% getFakeData() %>",
+          "horizontalAxisLabels": {
+            "label": "Date",
+            "binding": "<% row.Date %>"
+          },
+          "metrics": [
+            {
+              "label": "Order",
+              "binding": "<% row['Order'] %>"
+            },
+            {
+              "label": "San Francisco > Embarcadero Tower 1",
+              "binding": "<% row['Embarcadero Tower 1'] %>"
+            },
+            {
+              "label": "San Francisco > Embarcadero Tower 2",
+              "binding": "<% row['Embarcadero Tower 2'] %>"
+            },
+            {
+              "label": "New York > 1155 Building",
+              "binding": "<% row['1155 Building'] %>"
+            }
+          ],
+          "horizontalAxisTitle": "Time",
+          "verticalAxisTitle": "Check-ins",
+          "_comment": "The verticalAxisMaximumValue is optional.   If removed, Workday will scale the chart dynamically"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}

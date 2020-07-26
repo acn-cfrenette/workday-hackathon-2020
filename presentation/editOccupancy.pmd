@@ -1,0 +1,128 @@
+{
+  "id": "editOccupancy",
+  "endPoints": [
+    {
+      "name": "workerInfo",
+      "baseUrlType": "workday-staffing",
+      "url": "workers/me",
+      "httpMethod": "GET",
+      "authType": "sso"
+    },
+    {
+      "name": "locationsRaaS",
+      "baseUrlType": "workday-raas",
+      "url": "lmcneil/Office_Locations_Enabled_for_Return?Location_Usages_for_Location!WID=fbe0f826480e46978f80b361d35f31df&Location_Type!WID=310065db1eea46a9ba1e4ff48a7c080d&format=json",
+      "authType": "sso"
+    },
+    {
+      "name": "locationList",
+      "baseUrlType": "workday-wql",
+      "url": "data?query=SELECT%20location%20FROM%20locations(locationUsagesForLocation%3Dfbe0f826480e46978f80b361d35f31df)%20WHERE%20locationType%3D310065db1eea46a9ba1e4ff48a7c080d",
+      "httpMethod": "GET",
+      "authType": "sso",
+      "_toDo": "Do we Need this?"
+    },
+    {
+      "name": "locationOccupacy",
+      "baseUrlType": "workday-custom-obj",
+      "url": "customObjects/locationReturnToWorkSettings/<% id %>",
+      "httpMethod": "GET",
+      "authType": "sso",
+      "deferred": "true"
+    }
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "locationOccupacyOut",
+        "baseUrlType": "workday-custom-obj",
+        "url": "customObjects/locationReturnToWorkSettings/<% locationInst.value[0] %>",
+        "httpMethod": "PUT",
+        "authType": "sso"
+      },
+      {
+        "name": "transitionVariable",
+        "type": "outboundVariable",
+        "variableScope": "flow",
+        "values": [
+          {
+            "outboundPath": "location",
+            "value": "<% locationInst.value[0] %>"
+          },
+          {
+            "outboundPath": "enabledForReturnForWork",
+            "value": "<% enabledForReturnForWork.value %>"
+          }
+        ]
+
+      }
+    ]
+  },
+  "presentation": {
+    "headerSize": "VPS_DEFAULT",
+    "title": {
+      "type": "title",
+      "label": "Edit Occupancy for Locations"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "instanceList",
+          "label": "Pick a Location",
+          "id": "locationInst",
+          "required": "<% true %>",
+          "values": "<% locationsRaaS.Report_Entry %>",
+          "idKey": "id",
+          "displayKey": "location",
+          "onChange": "<%
+            var locationData = locationOccupacy.invoke({'id':self.value[0]});
+            debug.value = locationData;
+            enabledForReturnForWork.value = locationData.enabledForReturnForWork;
+            occupacy.value = locationData.allowedOccupancy;
+            percentageOfOccupacy.value = locationData.maximumOccupancy;
+           %>"
+        },
+        {
+          "type": "fieldSet",
+          "children": [
+            {
+              "type": "hidden",
+              "id": "debug",
+              "label": "debug"
+            },
+            {
+              "type": "checkBox",
+              "id": "enabledForReturnForWork",
+              "label": "Enabled for Return",
+              "valueOutBinding": "locationOccupacyOut.enabledForReturnForWork"
+            },
+            {
+              "type": "number",
+              "id": "occupacy",
+              "label": "Occupancy",
+              "valueOutBinding": "locationOccupacyOut.allowedOccupancy"
+            },
+            {
+              "type": "number",
+              "id": "percentageOfOccupacy",
+              "label": "Percentage of Occupacy",
+              "valueOutBinding": "locationOccupacyOut.maximumOccupancy"
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}

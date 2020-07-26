@@ -1,0 +1,37 @@
+{
+  "id": 3,
+  "name": "CheckIn",
+  "label": "Check In",
+  "defaultSecurityDomains": [
+    "ManageCovidCheckIns"
+  ],
+  "defaultCollection": {
+    "name": "checkIns",
+    "label": "Check Ins"
+  },
+  "fields": [
+    {
+      "id": 1,
+      "name": "worker",
+      "label": "Worker",
+      "type": "SINGLE_INSTANCE",
+      "target": "WORKER",
+      "useForDisplay": true
+    },
+    {
+      "id": 2,
+      "name": "timestamp",
+      "label": "Timestamp",
+      "type": "DATE",
+      "precision": "SECOND"
+    },
+    {
+      "id": 3,
+      "name": "location",
+      "label": "Location",
+      "type": "SINGLE_INSTANCE",
+      "target": "LOCATION"
+
+    }
+  ]
+}

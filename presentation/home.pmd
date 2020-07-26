@@ -1,9 +1,37 @@
 {
   "id": "home",
+  "endPoints": [
+    {
+      "name": "covidCases",
+      "baseUrlType": "covid-cases",
+      "url": "current.json",
+      "authType": "NoAuth"
+    },
+    {
+      "name": "worker",
+      "baseUrlType": "workday-staffing",
+      "url": "workers/me",
+      "authType": "sso"
+    },
+    {
+      "name": "myReservations",
+      "baseUrlType": "app",
+      "url": "reservations?reservedBy=<% worker.id %>",
+      "authType": "sso",
+      "isCollection": true
+    },
+    {
+      "name": "myTestResults",
+      "baseUrlType": "app",
+      "url": "testResults?worker=<% worker.id %>",
+      "authType": "sso",
+      "isCollection": true
+    }
+  ],
   "presentation": {
     "title": {
       "type": "title",
-      "label": "Workday Extend"
+      "label": "COVID-19 Employee Hub"
     },
     "body": {
       "type": "section",
@@ -11,8 +39,309 @@
         {
           "type": "richText",
           "id": "hello",
-          "label": "Hello World!",
-          "value": "Welcome to your <b>Workday Extend</b> App. Deployed by the Workday Extend Plugin for IntelliJ."
+          "label": "Welcome <% worker.descriptor %>!",
+          "value": "This is the GMS <b>COVID-19</b> hub. From here you can do tasks related to coming back into the office, such as: checking COVID cases in your area, getting testing locations in your area, submitting test results, and reserving a spot in the office."
+        },
+        {
+          "type": "section",
+          "horizontal": true,
+          "children": [
+            {
+              "type": "button",
+              "label": "Find a testing site",
+              "action": "PRIMARY",
+              "taskReference": {
+                "taskId": "findTestSite"
+              }
+            },
+            {
+              "type": "button",
+              "action": "AUXILIARY",
+              "label": "Submit Test Results",
+              "taskReference": {
+                "taskId": "covidConsentForm"
+              }
+            },
+            {
+              "type": "button",
+              "action": "AUXILIARY",
+              "label": "Return to Work Analytics",
+              "taskReference": {
+                "taskId": "checkInChart"
+              }
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "horizontal": false,
+          "sorted": false,
+          "children": [
+            {
+              "type": "grid",
+              "id": "gridMyTestResults",
+              "gridType": "LIST",
+              "label": "My Test Result Submissions",
+              "rows": "<%
+                myTestResults.data.sort(c => { c.dateOfTest })
+                  .reverse()
+                %>",
+              "rowVariableName": "testResult",
+              "doNotAdd": "true",
+              "doNotRemoveRow": "true",
+              "selectionEnabled": "false",
+              "columns": [
+                {
+                  "type": "column",
+                  "columnId": "columnTestId",
+                  "cellTemplate": {
+                    "type": "instanceList",
+                    "label": "Test Result",
+                    "instanceList": [
+                      {
+                        "id": "<% testResult.id %>",
+                        "descriptor": "<% testResult.descriptor %>",
+                        "wid": "<% testResult.id %>"
+                      }
+                    ]
+                  },
+                  "label": "Test Result",
+                  "sortableAndFilterable": true
+                },
+                {
+                  "type": "column",
+                  "columnId": "columnTestDate",
+                  "cellTemplate": {
+                    "type": "date",
+                    "value": "<% testResult.dateOfTest %>",
+                    "datePrecision": "DAY"
+                  },
+                  "label": "Date of Test",
+                  "sortableAndFilterable": true
+                },
+                {
+                  "type": "column",
+                  "columnId": "columnApprovalStatus",
+                  "cellTemplate": {
+                    "type": "text",
+                    "value": "<% if (testResult.approved) {'Approved'} else {'Pending'} %>"
+                  },
+                  "label": "Approval Status",
+                  "sortableAndFilterable": true
+                },
+                {
+                  "type": "column",
+                  "columnId": "columnCovidStatus",
+                  "cellTemplate": {
+                    "type": "text",
+                    "value": "<% if (testResult.result) {'Positive'} else {'Negative'} %>"
+                  },
+                  "label": "COVID-19 Result",
+                  "sortableAndFilterable": true
+                },
+                {
+                  "type": "column",
+                  "columnId": "columnTestDescription",
+                  "cellTemplate": {
+                    "type": "richText",
+                    "value": "<% testResult.description %>"
+                  },
+                  "label": "Description",
+                  "sortableAndFilterable": true
+                }
+              ]
+            },
+            {
+              "type": "button",
+              "label": "Reserve a spot",
+              "action": "AUXILIARY",
+              "taskReference": {
+                "taskId": "reserveSpot"
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "id": "gridMyReservations",
+          "gridType": "LIST",
+          "label": "My Reservations",
+          "rows": "<%
+            myReservations.data.sort(c => { c.reservationDate })
+              .reverse()
+              .filter(x => {x.statusOfRequest != 'Cancelled'})
+              .filter(x => {date:after(date:parseDateString(x.reservationDate), date:parseDateString(date:getTodaysDate(null)))});
+            %>",
+          "rowVariableName": "reservation",
+          "doNotAdd": "true",
+          "doNotRemoveRow": "true",
+          "selectionEnabled": "false",
+          "columns": [
+            {
+              "type": "column",
+              "columnId": "columnReservationId",
+              "cellTemplate": {
+                "type": "instanceList",
+                "label": "Reservation",
+                "instanceList": [
+                  {
+                    "id": "<% reservation.id %>",
+                    "descriptor": "<% reservation.descriptor %>",
+                    "wid": "<% reservation.id %>"
+                  }
+                ]
+              },
+              "label": "Reservation",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnLocationReserved",
+              "cellTemplate": {
+                "type": "instanceList",
+                "label": "Location",
+                "instanceList": [
+                  {
+                    "id": "<% reservation.location.id %>",
+                    "descriptor": "<% reservation.location.descriptor %>",
+                    "wid": "<% reservation.location.id %>"
+                  }
+                ]
+              },
+              "label": "Location Reserved",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnDateReserved",
+              "cellTemplate": {
+                "type": "date",
+                "value": "<% reservation.reservationDate %>",
+                "datePrecision": "DAY"
+              },
+              "label": "Date Requested",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnReservationStatus",
+              "cellTemplate": {
+                  "type": "text",
+                  "value": "<% reservation.statusOfRequest %>"
+              },
+              "label": "Request Status",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnCancelReservation",
+              "cellTemplate": {
+                "type": "button",
+                "label": "Cancel Reservation",
+                "action": "AUXILIARY",
+                "taskReference": {
+                  "taskId": "cancelReservation",
+                  "parameterBindings": {
+                    "reservationId": "<% reservation.id %>",
+                    "location": "<% reservation.location.descriptor %>",
+                    "locationId": "<% reservation.location.id %>",
+                    "reservationDate": "<% reservation.reservationDate %>",
+                    "reservedBy": "<% reservation.reservedBy.id %>"
+                  }
+                }
+              },
+            "sortableAndFilterable": false
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "id": "gridCovidCases",
+          "gridType": "LIST",
+          "label": "Latest COVID-19 Data",
+          "rows": "<% covidCases.sort(s => { s.state }) %>",
+          "rowVariableName": "stateCases",
+          "doNotAdd": "true",
+          "doNotRemoveRow": "true",
+          "selectionEnabled": "false",
+          "columns": [
+            {
+              "type": "column",
+              "columnId": "columnState",
+              "cellTemplate": {
+                "type": "text",
+                "value": "<% stateCases.state %>"
+              },
+              "label": "State",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnNewCases",
+              "cellTemplate": {
+                "type": "number",
+                "enabled": false,
+                "value": "<% stateCases.positiveIncrease %>"
+              },
+              "label": "New Cases",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnNewDeaths",
+              "cellTemplate": {
+                "type": "number",
+                "enabled": false,
+                "value": "<% stateCases.deathIncrease %>"
+              },
+              "label": "New Deaths",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTotalPositive",
+              "cellTemplate": {
+                "type": "number",
+                "enabled": false,
+                "value": "<% stateCases.positive %>"
+              },
+              "label": "Total Overall Positive Cases",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTotalNegative",
+              "cellTemplate": {
+                "type": "number",
+                "enabled": false,
+                "value": "<% stateCases.negative %>"
+              },
+              "label": "Total Overall Negative Cases",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTotalOverall",
+              "cellTemplate": {
+                "type": "number",
+                "enabled": false,
+                "value": "<% stateCases.total %>"
+              },
+              "label": "Total Overall Cases",
+              "sortableAndFilterable": true
+            },
+            {
+              "type": "column",
+              "columnId": "columnTotalRecovered",
+              "cellTemplate": {
+                "type": "number",
+                "enabled": false,
+                "value": "<% stateCases.recovered %>"
+              },
+              "label": "Total Overall Recovered",
+              "sortableAndFilterable": true
+            }
+          ]
         }
       ]
     },
@@ -20,9 +349,8 @@
       "type": "footer",
       "children": [
         {
-          "type": "richText",
-          "enabled": "false",
-          "value": "Powered By Workday Extend"
+          "type": "pod",
+          "podId": "footer"
         }
       ]
     }

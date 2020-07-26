@@ -1,0 +1,63 @@
+{
+  "id": "cancelReservation",
+  "endPoints": [
+  ],
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "cancelReservationOut",
+        "baseUrlType": "app",
+        "url": "reservations/<% queryParams.reservationId %>",
+        "httpMethod": "PUT",
+        "authType": "sso"
+      }
+    ],
+    "_responseErrorDetail": {
+      "errorSummary": "<% error %>",
+      "errors": "<% errors.map(item => { item.error }); %>"
+    }
+  },
+  "presentation": {
+    "headerSize": "VPS_DEFAULT",
+    "title": {
+      "type": "title",
+      "label": "Cancel Your Reservation"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "readOnlyText",
+          "id": "confirmationMessage",
+          "label": "Are you sure you want to cancel the reservation for <% queryParams.location %> on <% queryParams.reservationDate %>?",
+          "value": "Click OK to cancel the reservation. Click cancel to abort."
+        },
+        {
+          "type": "hidden",
+          "id": "locationId",
+          "value": "<% queryParams.locationId %>",
+          "valueOutBinding": "cancelReservationOut.location.id"
+        },
+        {
+          "type": "hidden",
+          "id": "reservedById",
+          "value": "<% queryParams.reservedBy %>",
+          "valueOutBinding": "cancelReservationOut.reservedBy.id"
+        },
+        {
+          "type": "hidden",
+          "id": "reservationDate",
+          "value": "<% queryParams.reservationDate %>",
+          "valueOutBinding": "cancelReservationOut.reservationDate"
+        },
+        {
+          "type": "hidden",
+          "id": "cancelledText",
+          "value": "Cancelled",
+          "valueOutBinding": "cancelReservationOut.statusOfRequest"
+        }
+      ]
+    }
+  }
+}
