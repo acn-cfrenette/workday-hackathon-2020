@@ -160,7 +160,11 @@
           "id": "gridMyReservations",
           "gridType": "LIST",
           "label": "My Reservations",
-          "rows": "<% list:filterMultiple(myReservations.data.sort(c => { c.reservationDate }).reverse(), reservation.statusOfRequest, ['In Progress','Approved']) %>",
+          "rows": "<%
+                    var filterOutCancelled = list:filter(myReservations.data, x => {x.statusOfRequest != 'Cancelled'});
+                    var filterOutBeforeToday = list:filter(filterOutCancelled.data, x => {date:parseDateString(x.reservationDate) >= date:getTodaysDate(null)});
+                    filterOutBeforeToday.data.sort(c => { c.date }).reverse();
+                  %>",
           "rowVariableName": "reservation",
           "doNotAdd": "true",
           "doNotRemoveRow": "true",
