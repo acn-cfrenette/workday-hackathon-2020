@@ -15,7 +15,7 @@
         %>"
       }
     ],
-    "responseErrorDetail": {
+    "_responseErrorDetail": {
       "errorSummary": "<% error %>",
       "errors": "<% errors.map(item => { item.error }); %>"
     }
