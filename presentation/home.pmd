@@ -77,7 +77,8 @@
               "rows": "<%
                 myTestResults.data.sort(c => { c.dateOfTest })
                   .reverse()
-                  .filter(x => {!x.approved})
+
+                  // .filter(x => {!x.approved})
                 %>",
               "rowVariableName": "testResult",
               "doNotAdd": "true",
@@ -99,6 +100,17 @@
                     ]
                   },
                   "label": "Test Result",
+                  "sortableAndFilterable": true
+                },
+                {
+                  "type": "column",
+                  "columnId": "columnTestDate",
+                  "cellTemplate": {
+                    "type": "date",
+                    "value": "<% testResult.dateOfTest %>",
+                    "datePrecision": "DAY"
+                  },
+                  "label": "Date of Test",
                   "sortableAndFilterable": true
                 },
                 {
@@ -152,6 +164,7 @@
             myReservations.data.sort(c => { c.reservationDate })
               .reverse()
               .filter(x => {x.statusOfRequest != 'Cancelled'})
+              .filter(x => {date:after(date:parseDateString(x.reservationDate), date:parseDateString(date:getTodaysDate(null)))});
             %>",
           "rowVariableName": "reservation",
           "doNotAdd": "true",
