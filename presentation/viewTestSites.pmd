@@ -18,12 +18,20 @@
     "headerSize": "VPS_DEFAULT",
     "title": {
       "type": "title",
-      "label": "Test Sites"
+      "label": "COVID-19 Testing Sites"
     },
     "body": {
       "type": "section",
       "horizontal": false,
       "children": [
+        {
+          "type": "button",
+          "label": "Back to COVID-19 Employee Hub",
+          "action": "PRIMARY",
+          "taskReference": {
+            "taskId": "root"
+          }
+        },
         {
           "type": "richText",
           "id": "locationsForState",
@@ -74,8 +82,9 @@
               "type": "column",
               "columnId": "columnLastUpdated",
               "cellTemplate": {
-                "type": "text",
-                "value": "<% testSite.updated %>"
+                "type": "date",
+                "value": "<% testSite.updated %>",
+                "datePrecision": "DAY"
               },
               "label": "Last Updated"
             }
