@@ -24,7 +24,7 @@
     "headerSize": "VPS_DEFAULT",
     "title": {
       "type": "title",
-      "label": "Covid Information Consent Form"
+      "label": "COVID-19 Information Consent Form"
     },
     "body": {
       "type": "section",
