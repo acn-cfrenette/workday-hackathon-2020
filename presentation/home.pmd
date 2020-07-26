@@ -160,7 +160,7 @@
           "id": "gridMyReservations",
           "gridType": "LIST",
           "label": "My Reservations",
-          "rows": "<% myReservations.data.sort(c => { c.reservationDate }).reverse() %>",
+          "rows": "<% list:filterMultiple(myReservations.data.sort(c => { c.reservationDate }).reverse(), reservation.statusOfRequest, ['In Progress','Approved']) %>",
           "rowVariableName": "reservation",
           "doNotAdd": "true",
           "doNotRemoveRow": "true",
@@ -226,7 +226,7 @@
               "columnId": "columnCancelReservation",
               "cellTemplate": {
                 "type": "button",
-                "label": "Cancel",
+                "label": "Cancel Reservation",
                 "action": "AUXILIARY",
                 "taskReference": {
                   "taskId": "cancelReservation",
