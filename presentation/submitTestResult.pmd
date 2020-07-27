@@ -28,15 +28,11 @@
         "multiPartFileLast": true
       },
       {
-        "name": "launchSubmitTestResultWorkflow",
-        "baseUrlType": "workflow",
-        "url": "workflows/SubmitTestResultWorkflow/launch",
+        "name": "testResultSubmit",
+        "baseUrlType": "app",
+        "url": "testResults",
         "httpMethod": "POST",
-        "authType": "sso",
-        "onSend": "<%
-          self.data.workerWID = worker.id;
-          self.data;
-        %>"
+        "authType": "sso"
       }
     ],
     "responseErrorDetail": {
@@ -70,7 +66,7 @@
               "required": "<% true %>",
               "values": "<% [worker] %>",
               "selectedValues": "<% [worker] %>",
-              "valueOutBinding": "launchSubmitTestResultWorkflow.worker.id",
+              "valueOutBinding": "testResultSubmit.worker.id",
               "_comment": "Set default value at page load to the current worker. They can search for a different worker by typing in the instanceList and hitting Enter."
             },
             {
@@ -79,7 +75,7 @@
               "label": "Test Date",
               "required": "true",
               "datePrecision": "DAY",
-              "valueOutBinding": "launchSubmitTestResultWorkflow.dateOfTest"
+              "valueOutBinding": "testResultSubmit.dateOfTest"
             },
             {
               "type": "dropdown",
@@ -97,10 +93,9 @@
                 }
               ],
               "required": "true",
-              "valueOutBinding": "launchSubmitTestResultWorkflow.result",
               "valuesOut": [
                 {
-                  "valueOutBinding": "launchSubmitTestResultWorkflow.result",
+                  "valueOutBinding": "testResultSubmit.result",
                   "value": "<% dropdownListTestResult.value[0] == 'true' ? true : false %>"
                 }
               ]
@@ -109,7 +104,7 @@
               "type": "richText",
               "id": "description",
               "label": "Test Description",
-              "valueOutBinding": "launchSubmitTestResultWorkflow.description",
+              "valueOutBinding": "testResultSubmit.description",
               "validations": [
                 {
                   "regex": "^.{0,1000}",
@@ -143,12 +138,6 @@
               "type": "hidden",
               "value": "cid:image",
               "valueOutBinding": "testImage:data:file"
-            },
-            {
-              "type": "hidden",
-              "id": "approved",
-              "value": false,
-              "valueOutBinding": "launchSubmitTestResultWorkflow.approved"
             },
             {
               "type": "fileUploader",

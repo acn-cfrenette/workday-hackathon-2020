@@ -95,17 +95,10 @@
                   "type": "column",
                   "columnId": "columnTestId",
                   "cellTemplate": {
-                    "type": "instanceList",
-                    "label": "Test Result",
-                    "instanceList": [
-                      {
-                        "id": "<% testResult.id %>",
-                        "descriptor": "<% testResult.descriptor %>",
-                        "wid": "<% testResult.id %>"
-                      }
-                    ]
+                    "type": "text",
+                    "value": "<% testResult.id %>"
                   },
-                  "label": "Test Result",
+                  "label": "Test Result ID",
                   "sortableAndFilterable": true
                 },
                 {
@@ -157,7 +150,8 @@
               "action": "AUXILIARY",
               "taskReference": {
                 "taskId": "reserveSpot"
-              }
+              },
+              "render": "<% !empty(myTestResults.data) %>"
             }
           ]
         },
@@ -176,22 +170,16 @@
           "doNotAdd": "true",
           "doNotRemoveRow": "true",
           "selectionEnabled": "false",
+          "render": "<% !empty(myTestResults.data) %>",
           "columns": [
             {
               "type": "column",
-              "columnId": "columnReservationId",
+              "columnId": "columnTestId",
               "cellTemplate": {
-                "type": "instanceList",
-                "label": "Reservation",
-                "instanceList": [
-                  {
-                    "id": "<% reservation.id %>",
-                    "descriptor": "<% reservation.descriptor %>",
-                    "wid": "<% reservation.id %>"
-                  }
-                ]
+                "type": "text",
+                "value": "<% reservation.id %>"
               },
-              "label": "Reservation",
+              "label": "Reservation ID",
               "sortableAndFilterable": true
             },
             {
